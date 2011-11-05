@@ -1,0 +1,203 @@
+
+/***** Global *****/ /* Body */
+body {
+	background: #F5F4EF url('../images/bg.png');
+	color: #000305;
+	font-size: 87.5%; /* Base font size: 14px */
+	font-family: 'Trebuchet MS', Trebuchet, 'Lucida Sans Unicode',
+		'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	line-height: 1.429;
+	margin: 0;
+	padding: 0;
+	text-align: left;
+}
+
+.body {
+	clear: both;
+	margin: auto;
+	width: 1100px;
+	padding: 10px;
+	background: #fff;
+	margin-bottom: 2em;
+	overflow: hidden;
+	width: 1100px;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+
+#banner div{
+	height: 100px;
+	background: #FFF url('../images/Turing.png') no-repeat;
+	width: 850px;
+	padding-left: 260px;
+}
+/* Main Nav */
+#banner nav {
+	background: #000305;
+	font-size: 1.143em;
+	height: 40px;
+	line-height: 30px;
+	margin: 0 auto 2em auto;
+	padding: 0;
+	text-align: center;
+	width: 1100px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+
+.input_big, .input_medium, .input_small{
+	border: 1px solid #aaa;
+	background-color: #f0f6f3;
+	float: left;
+	margin: 0px;
+}
+
+.input_small {
+	width: 50px;
+}
+
+.input_medium {
+	width: 80px;
+}
+
+.input_big {
+	width: 140px;
+}
+
+
+thead td {
+	font-size: 0.95em;
+	text-align: left;
+	padding-bottom: 1em;
+}
+
+tbody td {
+	margin: 0px;
+	padding: 0px;
+}
+
+
+.calc_table{
+	border-top: 1px solid #222;
+	margin: 0px;
+}
+.buildings_table_element{
+	border: 1px solid #cdf;
+	padding: 5px;
+	width: 140px;
+	height: 140px;
+	text-align: center;
+	border-spacing: 10px;
+	border-radius: 7px;
+}
+.buildings_table_element:hover{
+	background-color: #e3eae6;
+}
+.holder {
+	padding: 10px;
+	margin: 10px;
+	border: 1px solid #999;
+	font-size: .80em
+}
+
+.alt {
+	background-color: #e3eae6;
+}
+
+.centerText{
+	text-align: center;
+}
+
+#SelectedBuildingHolder{
+	width: 300px;
+	border: 1px solid #cdf;
+	padding: 15px;
+	border-spacing: 10px;
+	border-radius: 7px;
+}
+
+.selectBuilding{
+	width: 260px;
+}
+
+.graph{
+	float: left;
+	text-align: center;
+	margin: 10px;
+	border: 1px solid #cdf;
+	padding: 15px;
+	border-spacing: 10px;
+	border-radius: 7px;
+}
+
+.saveForm{
+	float: right;
+	margin: 3px 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#banner nav {
+  background: #aaa;
+  font-size: 1.143em;
+  height: 40px;
+  line-height: 30px;
+  margin: 0 auto 2em auto;
+  padding: 0;
+  text-align: center;
+  width: 1100px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+#banner nav ul {
+  list-style: none;
+  margin: 0 auto;
+  width: 1100px;
+}
+
+#banner nav li {
+  float: left;
+  display: inline;
+  margin: 0;
+}
+
+#banner nav a:link,#banner nav a:visited {
+  color: #fff;
+  display: inline-block;
+  height: 30px;
+  padding: 5px 1.5em;
+  text-decoration: none;
+}
+
+#banner nav a:hover,#banner nav a:active,#banner nav .active a:link,#banner nav .active a:visited
+  {
+  background: #999;
+  color: #fff;
+  text-shadow: none !important;
+}
+
+#banner nav li:first-child a {
+  border-top-left-radius: 5px;
+  -moz-border-radius-topleft: 5px;
+  -webkit-border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+}
