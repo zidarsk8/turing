@@ -148,7 +148,6 @@ tbody td {
 #settings {
   background: #aaa;
   font-size: 1.143em;
-  height: 40px;
   line-height: 30px;
   margin: 0 auto 2em auto;
   padding: 10px;
@@ -158,9 +157,8 @@ tbody td {
   -webkit-border-radius: 5px;
 }
 
-
-select{
-	widht:300px;
+#settings select {
+	width: 150px;
 }
 
 

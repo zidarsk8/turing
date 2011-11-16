@@ -23,7 +23,24 @@
     </header>
     
     <div id="settings">
-    <select placeholder="neki" multiple="multiple"><option>aaa asdf asdf asdfas</option><option>aaa asdf a</option><option>aaa asdf ass</option></select>
+
+    <h2>Basic</h2>
+    <label for="alphabet">Alphabet:</label><input type="text" value="0,1" name="alphabet" id="alphabet" />
+    <select data-placeholder="Number of states" style="" ><option></option><option>123</option></select>    
+    <h2>Add instruction:</h2>
+    <label for="state_in">Vhodno stanje</label><select id="state_in"><option>q1</option></select>
+    <label for="input">Vhodni znak</label><select id="input"><option>0</option><option>1</option></select>
+    <label for="state_out">Izhodno stanje</label><select id="state_out"><option>q1</option></select>
+    <label for="output">Izhodni znak</label><select id="output"><option>_</option><option>0</option><option>1</option></select>
+    <label for="move">Premik</label><select id="move"><option>L</option><option>R</option><option>NONE</option></select>
+    <div style="clear:left;"></div>
+    <h2>Advanced</h2>
+    <label for="trails">Number of trails</label><select id="trails"><option>1</option><option>2</option></select>
+    <label for="unlimited">Unlimited in both ways</label><input type="checkbox" id="unlimited"/>
+    <label for="tapes">Number of tapes</label><select id="tapes"><option>1</option><option>2</option></select>
+    <label for="diensions">Dimensions</label><select id="dimensions"><option>1</option><option>2</option></select>
+    <label for="undeterministic">Undeterministic</label><input type="checkbox" id="undeterministic"/>
+	<div style="clear:left;"></div>
     </div>
     <section class="body">
     
