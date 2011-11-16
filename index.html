@@ -36,13 +36,15 @@
 	    <thead>
 	    	<tr>
 	    	<th><label for="alphabet">Alphabet:</label></th>
-	    	<th><label for="state-number">Number of states:</label></th>
+	    	<th><label for="num_states">Number of states:</label></th>
+	    	<th><label for="final_states">Final states:</label></th>
 	    	</tr>
 	    </thead>
 	    <tbody>
 	    	<tr>
 	    	<td><input type="text" value="0,1" name="alphabet" id="alphabet" /></td>
-	    	<td><div class="slider" id="state-number"></div></td>
+	    	<td><div class="slider" id="num_states"></div></td>
+	    	<td><select id="final_states" multiple><option>q1</option></select></td>
 	    	</tr>
 	    </tbody>
 	    </table>
@@ -80,6 +82,7 @@
 	    	<td><select id="state_out"><option>q1</option></select></td>
 	    	<td><select id="output"><option>_</option><option>0</option><option>1</option></select></td>
 	    	<td><select id="move"><option>L</option><option>R</option><option>NONE</option></select></td>
+	    	<td><button>Add</button></td>
 	    	</tr>
 	    </tbody>
 	    </table>
@@ -91,18 +94,18 @@
 		<table>
 	    <thead>
 	    	<tr>
-	    	<th><label for="trails">Number of trails</label></th>
-	    	<th><label for="tapes">Number of tapes</label></th>
-	    	<th><label for="diensions">Dimensions</label></th>
+	    	<th><label for="num_trails">Number of trails</label></th>
+	    	<th><label for="num_tapes">Number of tapes</label></th>
+	    	<th><label for="num_diensions">Dimensions</label></th>
 	    	<th><label for="unlimited">Unlimited in both ways</label></th>
 	    	<th><label for="undeterministic">Undeterministic</label></th>
 	    	</tr>
 	   	</thead>
 	    <tbody>
 	    	<tr>
-	    	<td><div class="slider" id="trails"></div></td>
-	    	<td><div class="slider" id="tapes"></div></td>
-	    	<td><div class="slider" id="dimensions"></div></td>
+	    	<td><div class="slider" id="num_trails"></div></td>
+	    	<td><div class="slider" id="num_tapes"></div></td>
+	    	<td><div class="slider" id="num_dimensions"></div></td>
 	    	<td><input type="checkbox" id="unlimited"/></td>
 	    	<td><input type="checkbox" id="undeterministic"/></td>
 	    	</tr>
@@ -128,5 +131,6 @@
   <script type="text/javascript" src="js/lib/chosen/chosen/chosen.jquery.min.js"></script>
   <script type="text/javascript" src="js/lib/jquery-ui-1.8.16.custom.min.js"></script>
   <script type="text/javascript" src="js/init.js"></script>
+  <script type="text/javascript" src="js/functions.js"></script>
 </body>
 </html>

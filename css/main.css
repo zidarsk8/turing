@@ -157,12 +157,20 @@ tbody td {
   -webkit-border-radius: 5px;
 }
 
+#final_states{
+	width:350px ! important; 
+}
 #settings select {
 	width: 150px;
 }
 #settings td, #settings th{
 	padding:10px 16px;
 }
+#settings input{
+	padding:-5px;
+}
+
+
 .fl {
 	float: left;
 }
