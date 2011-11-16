@@ -8,28 +8,26 @@
   <meta name="description" content="Turing Machine Simulator">
   <meta name="author" content="psywerx">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/main.css">
-
+  <link rel="stylesheet" href="js/lib/chosen/chosen/chosen.css">
 </head>
 
 <body>
     <header id="banner">
-	<div class="body">
+	<div class="body" id="header">
     <h1>Web Turing</h1>
 	</div>
 	<nav>
-	  <ul>
-	      <li id="k1" class="active"><a href="#" >Simple Turing</a></li>
-	      <li id="k2"><a href="#">More tracks</a></li>
-	      <li id="k3"><a href="#">More heads</a></li>
-	      <li id="k3"><a href="#">More commands</a></li>
-	  </ul>
-    	</nav>
+    </nav>
     </header>
     
+    <div id="settings">
+    <select placeholder="neki" multiple="multiple"><option>aaa asdf asdf asdfas</option><option>aaa asdf a</option><option>aaa asdf ass</option></select>
+    </div>
     <section class="body">
+    
+    
     	TODO: everything. and make the nav buttons into pretty pictures
     </section>
     
@@ -37,11 +35,9 @@
 	footer
     </footer>
 
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.min.js"><\/script>')</script>
-  <!-- scripts concatenated and minified via ant build script-->
-
-  <!-- end scripts-->
-
+  <script type="text/javascript" src="js/lib/jquery-1.7.min.js"></script>
+  <script type="text/javascript" src="js/lib/chosen/chosen/chosen.jquery.min.js"></script>
+  <script type="text/javascript" src="js/lib/jquery-ui-1.8.16.custom.min.js"></script>
+  <script type="text/javascript" src="js/init.js"></script>
 </body>
 </html>
