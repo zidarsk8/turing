@@ -162,6 +162,7 @@ tbody td {
 }
 #settings select {
 	width: 150px;
+	
 }
 #settings td, #settings th{
 	padding:10px 16px;
@@ -169,7 +170,9 @@ tbody td {
 #settings input{
 	padding:-5px;
 }
-
+#input select,#input2 select{
+	widht:50px;
+}
 
 .fl {
 	float: left;

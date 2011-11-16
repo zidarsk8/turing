@@ -19,16 +19,14 @@
 	<div class="body" id="header">
     <h1>Web Turing</h1>
 	</div>
-	<nav>
-    </nav>
     </header>
     
     <div id="settings">
 	<div id="tabs">
 		<ul>
 		<li><a href="#tabs-1">Basic</a></li>
-		<li><a href="#tabs-2">Add instruction</a></li>
 		<li><a href="#tabs-3">Advanced</a></li>
+		<li><a href="#tabs-2">Add instruction</a></li>
 		</ul>
 		
 		<div id="tabs-1">
@@ -51,44 +49,28 @@
 	    </div>
 
 		<div id="tabs-2">
-		<div class="fl">
-		<table>
-	    <thead>
-	    	<tr>
-	    	<th><label for="state_in">Input state</label></th>
-	    	<th><label for="input">Input character</label></th>
-	    	</tr>
-	   	</thead>
-	    <tbody>
-	    	<tr>
-	    	<td><select id="state_in"><option>q1</option></select></td>
-	    	<td><select id="input"><option>0</option><option>1</option></select></td>
-	    	</tr>
-	    </tbody>
-	    </table>
-	    </div>
-
-	    <div class="fl">
 	    <table>
 	    <thead>
 	    	<tr>
+	    	<th><label for="state_in">Input state</label></th>
 	    	<th><label for="state_out">Output state</label></th>
+	    	<th><label for="input">Input character</label></th>
 	    	<th><label for="output">Output character</label></th>
 	    	<th><label for="move">Move</label></th>
 	    	</tr>
 	   	</thead>
 	    <tbody>
-	    	<tr>
+	    	<tr id="track">
+	   		<td><select id="state_in"><option>q1</option></select></td>
 	    	<td><select id="state_out"><option>q1</option></select></td>
-	    	<td><select id="output"><option>_</option><option>0</option><option>1</option></select></td>
+	    	<td id="input_trails"><select id="input4"><option>0</option><option>1</option></select><select id="input3"><option>0</option><option>1</option></select><select id="input"><option>0</option><option>1</option></select><select id="input2"><option>0</option><option>1</option></select></td>
+	    	<td id="output_trails"><select id="zuut4"><option>0</option><option>1</option></select><select id="zuput3"><option>0</option><option>1</option></select><select id="uzput"><option>0</option><option>1</option></select><select id="ouput2"><option>0</option><option>1</option></select></select></td>
 	    	<td><select id="move"><option>L</option><option>R</option><option>NONE</option></select></td>
-	    	<td><button>Add</button></td>
+	    	<td id="add_instruction"><button>Add</button></td>
 	    	</tr>
 	    </tbody>
 	    </table>
-	    </div>
-	    
-	    <div class="cb"></div>
+
 		</div>
 		<div id="tabs-3">
 		<table>
