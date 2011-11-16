@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="js/lib/chosen/chosen/chosen.css">
+  <link rel="stylesheet" href="css/flick/jquery-ui-1.8.16.custom.css">
 </head>
 
 <body>
@@ -23,88 +24,96 @@
     </header>
     
     <div id="settings">
+	<div id="tabs">
+		<ul>
+		<li><a href="#tabs-1">Basic</a></li>
+		<li><a href="#tabs-2">Add instruction</a></li>
+		<li><a href="#tabs-3">Advanced</a></li>
+		</ul>
+		
+		<div id="tabs-1">
+		<table>
+	    <thead>
+	    	<tr>
+	    	<th><label for="alphabet">Alphabet:</label></th>
+	    	<th><label for="state-number">Number of states:</label></th>
+	    	</tr>
+	    </thead>
+	    <tbody>
+	    	<tr>
+	    	<td><input type="text" value="0,1" name="alphabet" id="alphabet" /></td>
+	    	<td><select id="state-number" data-placeholder="Number of states" style="" ><option></option><option>123</option></select></td>
+	    	</tr>
+	    </tbody>
+	    </table>
+	    </div>
 
-    <h2>Basic</h2>
-    <table>
-    <thead>
-    	<tr>
-    	<th><label for="alphabet">Alphabet:</label></th>
-    	<th><label for="state-number">Number of states:</label></th>
-    	</tr>
-    </thead>
-    <tbody>
-    	<tr>
-    	<td><input type="text" value="0,1" name="alphabet" id="alphabet" /></td>
-    	<td><select id="state-number" data-placeholder="Number of states" style="" ><option></option><option>123</option></select></td>
-    	</tr>
-    </tbody>
-    </table>
-        
-    <h2>Add instruction</h2>
-    <div class="fl">
-    <h3>Input:</h3>
-    <table>
-    <thead>
-    	<tr>
-    	<th><label for="state_in">Input state</label></th>
-    	<th><label for="input">Input character</label></th>
-    	</tr>
-   	</thead>
-    <tbody>
-    	<tr>
-    	<td><select id="state_in"><option>q1</option></select></td>
-    	<td><select id="input"><option>0</option><option>1</option></select></td>
-    	</tr>
-    </tbody>
-    </table>
-    </div>
-    <div class="fl">
+		<div id="tabs-2">
+		<div class="fl">
+		<table>
+	    <thead>
+	    	<tr>
+	    	<th><label for="state_in">Input state</label></th>
+	    	<th><label for="input">Input character</label></th>
+	    	</tr>
+	   	</thead>
+	    <tbody>
+	    	<tr>
+	    	<td><select id="state_in"><option>q1</option></select></td>
+	    	<td><select id="input"><option>0</option><option>1</option></select></td>
+	    	</tr>
+	    </tbody>
+	    </table>
+	    </div>
 
-    <h3>Output:</h3>
-    <table>
-    <thead>
-    	<tr>
-    	<th><label for="state_out">Output state</label></th>
-    	<th><label for="output">Output character</label></th>
-    	<th><label for="move">Move</label></th>
-    	</tr>
-   	</thead>
-    <tbody>
-    	<tr>
-    	<td><select id="state_out"><option>q1</option></select></td>
-    	<td><select id="output"><option>_</option><option>0</option><option>1</option></select></td>
-    	<td><select id="move"><option>L</option><option>R</option><option>NONE</option></select></td>
-    	</tr>
-    </tbody>
-    </table>
-    </div>
+	    <div class="fl">
+	    <table>
+	    <thead>
+	    	<tr>
+	    	<th><label for="state_out">Output state</label></th>
+	    	<th><label for="output">Output character</label></th>
+	    	<th><label for="move">Move</label></th>
+	    	</tr>
+	   	</thead>
+	    <tbody>
+	    	<tr>
+	    	<td><select id="state_out"><option>q1</option></select></td>
+	    	<td><select id="output"><option>_</option><option>0</option><option>1</option></select></td>
+	    	<td><select id="move"><option>L</option><option>R</option><option>NONE</option></select></td>
+	    	</tr>
+	    </tbody>
+	    </table>
+	    </div>
+	    
+	    <div class="cb"></div>
+		</div>
+		<div id="tabs-3">
+		<table>
+	    <thead>
+	    	<tr>
+	    	<th><label for="trails">Number of trails</label></th>
+	    	<th><label for="tapes">Number of tapes</label></th>
+	    	<th><label for="diensions">Dimensions</label></th>
+	    	<th><label for="unlimited">Unlimited in both ways</label></th>
+	    	<th><label for="undeterministic">Undeterministic</label></th>
+	    	</tr>
+	   	</thead>
+	    <tbody>
+	    	<tr>
+	    	<td><select id="trails"><option>1</option><option>2</option></select></td>
+	    	<td><select id="tapes"><option>1</option><option>2</option></select></td>
+	    	<td><select id="dimensions"><option>1</option><option>2</option></select></td>
+	    	<td><input type="checkbox" id="unlimited"/></td>
+	    	<td><input type="checkbox" id="undeterministic"/></td>
+	    	</tr>
+	    </tbody>
+	    </table>
+		</div>
+		
+		
+	</div>
+	</div>
     
-    <div class="cb"></div>
-    
-    <h2>Advanced</h2>
-    
-    <table>
-    <thead>
-    	<tr>
-    	<th><label for="trails">Number of trails</label></th>
-    	<th><label for="tapes">Number of tapes</label></th>
-    	<th><label for="diensions">Dimensions</label></th>
-    	<th><label for="unlimited">Unlimited in both ways</label></th>
-    	<th><label for="undeterministic">Undeterministic</label></th>
-    	</tr>
-   	</thead>
-    <tbody>
-    	<tr>
-    	<td><select id="trails"><option>1</option><option>2</option></select></td>
-    	<td><select id="tapes"><option>1</option><option>2</option></select></td>
-    	<td><select id="dimensions"><option>1</option><option>2</option></select></td>
-    	<td><input type="checkbox" id="unlimited"/></td>
-    	<td><input type="checkbox" id="undeterministic"/></td>
-    	</tr>
-    </tbody>
-    </table>
-    
-    </div>
     <section class="body">
     
     
