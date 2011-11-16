@@ -160,9 +160,15 @@ tbody td {
 #settings select {
 	width: 150px;
 }
-
-
-
+#settings td, #settings th{
+	padding:0px 5px;
+}
+.fl {
+	float: left;
+}
+.cb {
+	clear: both;
+}
 #banner nav {
   background: #aaa;
   font-size: 1.143em;
