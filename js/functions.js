@@ -54,10 +54,29 @@ handle_slider = function(event, ui){
 
 add_instruction = function(){
 	var data = {};
-	$('#track').find('select').each(function(){
-		
-		data[$(this).attr('id')] = this.value;
+	$('#add_instruction_table').find('select').each(function(){
+		var id = $(this).attr('id');
+		var split = id.split('_');
+		if(split.length > 2){
+			item = split[0]+ '_' +split[1];
+			
+			if(typeof(data[item]) == "undefined"){
+				data[item] = [];
+			}
+			if(typeof(data[item][parseInt(split[2])]) == "undefined"){
+				data[item][parseInt(split[2])] = [];
+			}
+			
+			if(split.length == 3){
+				data[item][parseInt(split[2])] = this.value;
+			}
+			else{
+				data[item][parseInt(split[2])][parseInt(split[3])] = this.value;
+			}
+		}
+		else{
+			data[$(this).attr('id')] = this.value;
+		}
 	});
 	turing_states.push(data);
-	console.log(data);
 };
