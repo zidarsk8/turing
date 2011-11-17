@@ -8,6 +8,11 @@ $(document).ready(function() {
 		slide: handle_slider
 	});
 	
-	$("select").chosen();
+	$('#add_instruction').click(add_instruction);
+	
+	//$("select").chosen();
+	$("#final_states").chosen();
 	$( "#tabs" ).tabs();
+	
+	turing_states = [];
 });

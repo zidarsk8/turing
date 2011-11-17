@@ -13,31 +13,51 @@ handle_slider = function(event, ui){
 			var track = $('#track');
 			track.siblings().remove();
 			new_track = track.clone();
-			new_track.find('#state_in,#state_out').parent().html('');
+			new_track.attr('id', '').attr('class', 'additional_tracks');
+			new_track.find('#state_in,#state_out').parent().empty();
 			new_track.find('#add_instruction').remove();
-			console.log(new_track);
-			
+						
 			for(var i=1; i < ui.value; i++){
 				track.parent().append(new_track.clone());
 			}
-		
-		break;
+			$('.tape_move').empty().each(function(){
+				var row = $(this).parent().parent().children().index($(this).parent());
+				$(this).append('<select class="input" id="tape_move_'+row+'"><option>L</option><option>R</option><option>NONE</option></select>');
+
+			});
+			// We need to update the trails as well, we set ui.value to the number of trails:
+			ui.value = $('#num_trails').slider( "value" );
+
+
 		case('num_trails'):
-			var trail_input = $('#input_trails');
-			trail_input.empty();
-
-			for(var i=0; i < ui.value; i++){					
-				trail_input.append('<select class="input" id="'+trail_input.attr('id')+'_'+i+'"><option>0</option><option>1</option></select>');
-			}
-			var trail_output = $('#output_trails');
-			trail_output.empty();
-
-			for(var i=0; i < ui.value; i++){					
-				trail_output.append('<select class="input" id="'+trail_output.attr('id')+'_'+i+'"><option>0</option><option>1</option></select>');
-			}
-
-			$('.input').chosen();
+			var trail_input = $('.input_trails');
+			trail_input.empty().each(function(){
+				var row = $(this).parent().parent().children().index($(this).parent());
+				for(var i=0; i < ui.value; i++){					
+					$(this).append('<select class="input" id="input_trail_'+row+'_'+i+'"><option>0</option><option>1</option></select>');
+				}
+			});
+			var trail_output = $('.output_trails');
+			trail_output.empty().each(function(){
+				var row = $(this).parent().parent().children().index($(this).parent());
+				for(var i=0; i < ui.value; i++){					
+					$(this).append('<select class="input" id="output_trail_'+row+'_'+i+'"><option>0</option><option>1</option></select>');
+				}
+			});
+			
+			//chosen seems to be slow
+			//$('.input').chosen();
 			break;
 			
 	};
+};
+
+add_instruction = function(){
+	var data = {};
+	$('#track').find('select').each(function(){
+		
+		data[$(this).attr('id')] = this.value;
+	});
+	turing_states.push(data);
+	console.log(data);
 };
