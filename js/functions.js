@@ -103,7 +103,7 @@ update_states_table = function(){
 			if(typeof(turing_states[state][element]) == "string")
 				$(tds[i++]).html(turing_states[state][element]);
 			else{
-				$(tds[i++]).html(turing_states[state][element].join(" "));
+				$(tds[i++]).html(turing_states[state][element].join("<br />"));
 			}
 		}
 
