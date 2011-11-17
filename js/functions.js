@@ -79,4 +79,59 @@ add_instruction = function(){
 		}
 	});
 	turing_states.push(data);
+	
+	update_states_table();
+	update_encoded_output();
+};
+
+update_states_table = function(){
+	hide_list_instruction_table();
+	table = $('#list_instruction_body');
+	table.children().remove();
+	var rows = {};
+	for(var state in turing_states){
+		if(typeof(rows[state]) == "undefined"){
+			table.append('<tr><td></td><td></td><td></td><td></td><td></td><td class="remove_instruction"><button>Remove</button></td></tr>');
+			rows = table.find('tr');
+
+			$(rows.find('.remove_instruction').last().children().first()).click(remove_state_row);
+		}
+		var i = 0;
+		var tds = $(rows[state]).find('td');
+		for(var element in turing_states[state]){
+
+			if(typeof(turing_states[state][element]) == "string")
+				$(tds[i++]).html(turing_states[state][element]);
+			else{
+				$(tds[i++]).html(turing_states[state][element].join(" "));
+			}
+		}
+
+
+	}
+
+};
+
+hide_list_instruction_table = function(){
+	var table = $('#list_instruction_table');
+	if(turing_states.length == 0){
+		table.hide();
+		return;
+	}	
+	else{
+		table.show();
+	}
+};
+
+remove_state_row = function(){
+
+		var row = $(this).parent().parent().parent().children().index($(this).parent().parent());
+		turing_states.splice(row, 1);
+		$($(this).parent().parent()).remove();
+		hide_list_instruction_table();
+
+};
+
+update_encoded_output = function(){
+	// TODO
 };

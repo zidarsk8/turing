@@ -15,4 +15,5 @@ $(document).ready(function() {
 	$( "#tabs" ).tabs();
 	
 	turing_states = [];
+	update_states_table();
 });
