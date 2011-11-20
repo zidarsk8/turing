@@ -17,8 +17,14 @@
 <body>
     <header id="banner">
 	<div class="body" id="header">
-    <h1>Web Turing</h1>
+        <h1>Turing Machine Simulator</h1>
 	</div>
+	<nav class="body">
+        <a href="#"><img src="img/settings.png" />Settings</a>
+        <a href="#"><img src="img/graph.png" />Graph</a>
+        <a href="#"><img src="img/simulation.png" />Simulation</a>
+        <a href="#"><img src="img/about.png" />About</a>
+    </nav>
     </header>
     
     <div id="settings">
@@ -78,7 +84,7 @@
 	    	<th><label for="state_out">Output state</label></th>
 	    	<th><label for="input">Input character</label></th>
 	    	<th><label for="output">Output character</label></th>
-	    	<th><label for="move">Move</label></th>
+	    	<th><label for="move">Tape move</label></th>
 	    	</tr>
 	   	</thead>
 	    <tbody id="list_instruction_body">
@@ -94,8 +100,8 @@
 	    	<th><label for="num_trails">Number of trails</label></th>
 	    	<th><label for="num_tapes">Number of tapes</label></th>
 	    	<th><label for="num_diensions">Dimensions</label></th>
-	    	<th><label for="unlimited">Unlimited in both ways</label></th>
-	    	<th><label for="undeterministic">Indeterministic</label></th>
+	    	<th><label for="unlimited_tape">Unlimited in both directions</label></th>
+	    	<th><label for="nondeterministic">Non-deterministic</label></th>
 	    	</tr>
 	   	</thead>
 	    <tbody>
@@ -103,8 +109,8 @@
 	    	<td><div class="slider" id="num_trails"></div></td>
 	    	<td><div class="slider" id="num_tapes"></div></td>
 	    	<td><div class="slider" id="num_dimensions"></div></td>
-	    	<td><input type="checkbox" id="unlimited"/></td>
-	    	<td><input type="checkbox" id="undeterministic"/></td>
+	    	<td><input type="checkbox" id="unlimited_tape"/></td>
+	    	<td><input type="checkbox" id="nondeterministic"/></td>
 	    	</tr>
 	    </tbody>
 	    </table>
@@ -115,8 +121,6 @@
 	</div>
     
     <section class="body">
-    
-    
     	TODO: everything. and make the nav buttons into pretty pictures
     </section>
     
