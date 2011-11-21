@@ -20,14 +20,14 @@
         <h1>Turing Machine Simulator</h1>
 	</div>
 	<nav class="body">
-        <a href="#"><img src="img/settings.png" />Settings</a>
-        <a href="#"><img src="img/graph.png" />Graph</a>
-        <a href="#"><img src="img/simulation.png" />Simulation</a>
-        <a href="#"><img src="img/about.png" />About</a>
+        <a href="#" id="navsettings" class="selectednav"><img src="img/settings.png" />Settings</a>
+        <a href="#" id="navgraph"><img src="img/graph.png" />Graph</a>
+        <a href="#" id="navsimulation"><img src="img/simulation.png" />Simulation</a>
+        <a href="#" id="navabout"><img src="img/about.png" />About</a>
     </nav>
     </header>
     
-    <div id="settings">
+    <div class="pane visiblepane" id="settings">
 	<div id="tabs">
 		<ul>
 		<li><a href="#tabs-1">Basic</a></li>
@@ -120,17 +120,34 @@
 	</div>
 	</div>
     
+    <div class="pane" id="graph">
+        Graph view: (click around!)
+        <div id="graphcanvas"></div>
+	</div>
+
+    <div class="pane" id="simulation">
+        Simulation view: (nothing yet...)
+        <div id="simcanvas"></div>
+    </div>
+
+    <div class="pane" id="about">
+	<div id="tabs">
+        Hi, go to: <a href="http://psywerx.net">psywerx</a>.
+	</div>
+	</div>
+
     <section class="body">
-    	TODO: everything. and make the nav buttons into pretty pictures
+    	TODO: everything.
     </section>
     
     <footer id="contentinfo" class="body">
-	footer
+        footer
     </footer>
 
   <script type="text/javascript" src="js/lib/jquery-1.7.min.js"></script>
   <script type="text/javascript" src="js/lib/chosen/chosen/chosen.jquery.min.js"></script>
   <script type="text/javascript" src="js/lib/jquery-ui-1.8.16.custom.min.js"></script>
+  <script type="text/javascript" src="js/lib/raphael-min.js"></script>
   <script type="text/javascript" src="js/init.js"></script>
   <script type="text/javascript" src="js/functions.js"></script>
 </body>
