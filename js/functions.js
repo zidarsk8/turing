@@ -1,15 +1,8 @@
 handle_slider = function(event, ui){
 	switch($($(ui.handle).parent()).attr('id')){
-		case('num_states'):
-			var states = $('#state_in, #state_out, #final_states'); 
-			states.find('option').remove().end();
-			for(var i=0; i < ui.value; i++){
-				states.append('<option value="'+i+'">q'+i+'</option>');
-			}
-			states.trigger("liszt:updated");
-			break;
 			
 		case('num_tapes'):
+			
 			var track = $('#track');
 			track.siblings().remove();
 			new_track = track.clone();
@@ -52,6 +45,16 @@ handle_slider = function(event, ui){
 	};
 };
 
+add_state = function(){
+	var value = parseInt(this.value);
+	var states = $('#state_in, #state_out, #final_states'); 
+	states.find('option').remove().end();
+	for(var i=0; i < value; i++){
+		states.append('<option value="'+i+'">q'+i+'</option>');
+	}
+	states.trigger("liszt:updated");
+};
+
 add_instruction = function(){
 	var data = {};
 	$('#add_instruction_table').find('select').each(function(){
@@ -82,6 +85,44 @@ add_instruction = function(){
 	
 	update_states_table();
 	update_encoded_output();
+};
+
+update_encoded_output = function(){
+	var out = "111\n";
+
+	for(var state in turing_states){
+
+		for(var i=0; i <= parseInt(turing_states[state].state_in); i++){
+			out += '0';
+		}
+		out += '1';
+		for(var trail in turing_states[state].input_trail){
+			for(var i=0; i<= parseInt(turing_states[state].input_trail[parseInt(trail)]); i++){
+				out += '0';
+			}
+		}
+		out += '1';
+		for(var i=0; i<= parseInt(turing_states[state].state_out); i++){
+			out += '0';
+		}
+		out += '1';
+		for(var trail in turing_states[state].output_trail){
+			for(var i=0; i<= parseInt(turing_states[state].output_trail[parseInt(trail)]); i++){
+				out += '0';
+			}
+		}
+		out += '1';
+		for(var move in turing_states[state].tape_move){
+			switch(turing_states[state].tape_move[move]){
+				case("NONE"): out += '0';			
+				case("L"): out += '0';
+				case("D"): out += '0';
+			}
+		}
+		out += "11\n";
+	}
+	out += "111";
+	$('#encoded_output').val(out);
 };
 
 update_states_table = function(){
@@ -130,8 +171,4 @@ remove_state_row = function(){
 		$($(this).parent().parent()).remove();
 		hide_list_instruction_table();
 
-};
-
-update_encoded_output = function(){
-	// TODO
 };

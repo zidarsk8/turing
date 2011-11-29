@@ -18,7 +18,8 @@ $(document).ready(function() {
 		step: 1,
 		slide: handle_slider
 	});
-	
+	$("#num-states").keyup(add_state);
+    
 	$('#add_instruction').click(add_instruction);
 	
 	//$("select").chosen();

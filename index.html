@@ -33,6 +33,7 @@
 		<li><a href="#tabs-1">Basic</a></li>
 		<li><a href="#tabs-3">Advanced</a></li>
 		<li><a href="#tabs-2">Add instruction</a></li>
+		<li><a href="#tabs-4">Encoded</a></li>
 		</ul>
 		
 		<div id="tabs-1">
@@ -47,7 +48,7 @@
 	    <tbody>
 	    	<tr>
 	    	<td><input type="text" value="0,1" name="alphabet" id="alphabet" /></td>
-	    	<td><div class="slider" id="num_states"></div></td>
+	    	<td><input type="text" value="1" name="num-states" id="num-states" /></td>
 	    	<td><select id="final_states" multiple><option>q1</option></select></td>
 	    	</tr>
 	    </tbody>
@@ -67,8 +68,8 @@
 	   	</thead>
 	    <tbody>
 	    	<tr id="track">
-	   		<td><select id="state_in"><option>q1</option></select></td>
-	    	<td><select id="state_out"><option>q1</option></select></td>
+	   		<td><select id="state_in"><option value="0">q0</option></select></td>
+	    	<td><select id="state_out"><option value="0">q0</option></select></td>
 	    	<td class="input_trails"><select id="input_trail_0_0"><option>0</option><option>1</option></select></td>
 	    	<td class="output_trails"><select id="output_trail_0_0"><option>0</option><option>1</option></select></td>
 	    	<td class="tape_move"><select id="tape_move_0"><option>L</option><option>R</option><option>NONE</option></select></td>
@@ -115,7 +116,9 @@
 	    </tbody>
 	    </table>
 		</div>
-		
+		<div id="tabs-4">
+		<textarea rows="10" cols="60" id = "encoded_output"></textarea>
+		</div>
 		
 	</div>
 	</div>
