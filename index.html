@@ -130,13 +130,30 @@
     
     <div class="pane" id="simulation">
         <div id="sim-settings">
-            <input type="text" value="011010101010010010" name="sim-input" id="sim-input" />
-            <input type="button" value="Start" name="sim-button" id="sim-button" />
+		<table>
+	    <thead>
+	    	<tr>
+	    	<th><label for="sim-input">Machine input</label></th>
+	    	<th><label>Flow control</label></th>
+	    	</tr>
+	   	</thead>
+	    <tbody>
+	    	<tr>
+	    	<td><input type="text" value="01101010101010" name="sim-input" id="sim-input" /></td>
+            <td>
+                <input type="button" value="Start" name="sim-button-start" id="sim-button-start" />
+                <input type="button" value="Step" name="sim-button-step" id="sim-button-step" />
+            </td>
+	    	</tr>
+	    </tbody>
+	    </table>        
         </div>
+        
         <div id="sim-head-container">
             <div id="sim-head">
                 State: <span id="sim-head-state">q0</span><br/>
-                Input: <span id="sim-head-input">0</span>
+                Input: <span id="sim-head-input">-</span>
+                Move: <span id="sim-head-move">-</span>
             </div>
             <div style="padding:20px">imagine a magical line down to the tape</div>
         </div>

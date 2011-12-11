@@ -34,7 +34,10 @@ $(document).ready(function() {
 	update_states_table();
     
     // simulation init
-    $("#sim-button").click(function(e) {
+    $("#sim-button-step").click(turing_tristep);
+    update_tape($("#sim-input").val())
+
+    $("#sim-button-start").click(function(e) {
         if(e.target.value == "Start") {
             e.target.value = "Pause";
             update_tape($("#sim-input").val())
@@ -46,7 +49,6 @@ $(document).ready(function() {
         }
     });
     
-    $("#sim-button").click();
     
     
     // graphics init
