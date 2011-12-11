@@ -2,6 +2,9 @@ var  graph; // probably doing it wrong...
 
 $(document).ready(function() {
 
+    // random TODO
+    //// save machine and view to cookies
+
     // navigation
     $('nav > a').click(function(a) {
         $('.visiblepane').removeClass('visiblepane');
@@ -9,8 +12,9 @@ $(document).ready(function() {
         $('.selectednav').removeClass('selectednav');
         $(this).addClass('selectednav');
     })
+    $("#simulation").addClass("visiblepane")
 
-    // settings init
+    // machine settings init
 	$(".slider").slider({
 		value:1,
 		min: 1,
@@ -23,13 +27,27 @@ $(document).ready(function() {
 	$('#add_instruction').click(add_instruction);
 	
 	//$("select").chosen();
-	$("#final_states").chosen();
-	$( "#tabs" ).tabs();
+	$("#final_states").chosen().change(update_states_table);
+	$("#tabs").tabs();
 	
 	turing_states = [];
 	update_states_table();
     
-    //graphics init
+    // simulation init
+    $("#sim-button").click(function(e) {
+        if(e.target.value == "Start") {
+            e.target.value = "Pause"
+
+            var input = $("#sim-input").val()
+            turing(turing_states, input)
+        } else {
+            //pause
+            e.target.value = "Start"
+        }
+    });
+    
+    
+    // graphics init
     graph = new Raphael(document.getElementById('graphcanvas'), "100%", "500px");
     $('#graphcanvas').click(function(e) {
         graph.circle(e.pageX - this.offsetLeft,

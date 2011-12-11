@@ -20,14 +20,14 @@
         <h1>Turing Machine Simulator</h1>
 	</div>
 	<nav class="body">
-        <a href="#" id="navsettings" class="selectednav"><img src="img/settings.png" />Settings</a>
+        <a href="#" id="navmachine" class="selectednav"><img src="img/settings.png" />Machine</a>
         <a href="#" id="navgraph"><img src="img/graph.png" />Graph</a>
         <a href="#" id="navsimulation"><img src="img/simulation.png" />Simulation</a>
         <a href="#" id="navabout"><img src="img/about.png" />About</a>
     </nav>
     </header>
     
-    <div class="pane visiblepane" id="settings">
+    <div class="pane" id="machine">
 	<div id="tabs">
 		<ul>
 		<li><a href="#tabs-1">Basic</a></li>
@@ -129,8 +129,15 @@
 	</div>
 
     <div class="pane" id="simulation">
-        Simulation view: (nothing yet...)
-        <div id="simcanvas"></div>
+        <div id="sim-settings">
+            <input type="text" value="011010101010010010" name="sim-input" id="sim-input" />
+            <input type="button" value="Start" name="sim-button" id="sim-button" />
+        </div>
+        <div id="sim-head">
+            <span id="sim-head-state"></span>
+            <span id="sim-head-input"></span>
+        </div>
+        <div id="sim-tape"></div>
     </div>
 
     <div class="pane" id="about">
@@ -153,5 +160,6 @@
   <script type="text/javascript" src="js/lib/raphael-min.js"></script>
   <script type="text/javascript" src="js/init.js"></script>
   <script type="text/javascript" src="js/functions.js"></script>
+  <script type="text/javascript" src="js/turing.js"></script>
 </body>
 </html>
