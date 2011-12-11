@@ -267,15 +267,59 @@ nav .selectednav {
 
 /* simulation */
 
-#sim-head {
-    width:150px;
-    height:150px;
-    border: 2px solid black;
-    background-color: white;    
+#sim-head-container {
+    text-align:center;
+    width:100%;
 }
 
+#sim-head {
+    width:75px;
+    height:65px;
+    border: 2px solid black;
+    background-color: white;
+    padding:20px;
+    margin-left:45%;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;    
+}
 
+#sim-tape {
+    height:34px;
+    border: 2px solid black;
+    background-color: white;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;    
+}
 
+.sim-tape-loc { 
+    text-align:center;
+    display:inline-block;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    width:30px;
+    padding:2px;
+	border-radius: 0px;
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 0px;        
+}
+.sim-current { 
+    border-left: 3px solid black;
+    border-right: 3px solid black;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    font-weight:bold;
+    padding:0px;
+}
+
+/*does not work?*/
+.sim-tape::first-child { 
+    border-left: 0px solid black;
+}
+.sim-tape::first-child .sim-current { 
+    border-left: 1px solid black;
+}
 
 
 

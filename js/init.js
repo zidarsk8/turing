@@ -36,15 +36,17 @@ $(document).ready(function() {
     // simulation init
     $("#sim-button").click(function(e) {
         if(e.target.value == "Start") {
-            e.target.value = "Pause"
-
-            var input = $("#sim-input").val()
-            turing(turing_states, input)
+            e.target.value = "Pause";
+            update_tape($("#sim-input").val())
+            turing_start()
         } else {
             //pause
             e.target.value = "Start"
+            turing_pause()
         }
     });
+    
+    $("#sim-button").click();
     
     
     // graphics init
