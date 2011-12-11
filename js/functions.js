@@ -147,10 +147,7 @@ update_states_table = function(){
 				$(tds[i++]).html(turing_states[state][element].join("<br />"));
 			}
 		}
-
-
 	}
-
 };
 
 hide_list_instruction_table = function(){
@@ -165,10 +162,9 @@ hide_list_instruction_table = function(){
 };
 
 remove_state_row = function(){
-
 		var row = $(this).parent().parent().parent().children().index($(this).parent().parent());
 		turing_states.splice(row, 1);
 		$($(this).parent().parent()).remove();
 		hide_list_instruction_table();
-
+		update_encoded_output();
 };
