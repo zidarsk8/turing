@@ -170,5 +170,6 @@ remove_state_row = function(){
 		turing_states.splice(row, 1);
 		$($(this).parent().parent()).remove();
 		hide_list_instruction_table();
+		update_encoded_output();
 
 };
