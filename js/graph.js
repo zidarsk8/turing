@@ -27,6 +27,8 @@ update_graph = function() {
 
         states.push(state)
     }
+    graph.arrow(states[0].x-45, states[0].y, states[0].x-20, states[0].y, 10).attr({"stroke-width":"2px"})
+    
     for(var i=0; i<turing_states.length; i++) {
         var sin  = parseInt(turing_states[i].state_in),
             sout = parseInt(turing_states[i].state_out)
@@ -39,7 +41,7 @@ update_graph = function() {
         x = (x+states[sin].x)/2
         y = (y+states[sin].y)/2
         
-        graph.text(x,y-15,"("+turing_states[i].input_trail+","+turing_states[i].input_trail+","+turing_states[i].tape_move+")").attr({"font":"16px serif", "text-anchor":"middle","fill":"#001111"});
+        graph.text(x,y-15,"("+turing_states[i].input_trail+"->"+turing_states[i].input_trail+","+turing_states[i].tape_move+")").attr({"font":"16px serif", "text-anchor":"middle","fill":"#001111"});
         
     }
     for(var i=0; i<statecount; i++) {
