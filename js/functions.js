@@ -101,7 +101,6 @@ add_instruction = function(){
 	
 	update_states_table();
 	update_encoded_output();
-	update_graph();
 };
 
 update_encoded_output = function(){

@@ -11,6 +11,9 @@ $(document).ready(function() {
         $('#'+this.id.substring(3)).addClass('visiblepane');
         $('.selectednav').removeClass('selectednav');
         $(this).addClass('selectednav');
+        if(this.id.substring(3)=="graph") {
+        	update_graph();
+        }
     })
     $("#graph").addClass("visiblepane")
 

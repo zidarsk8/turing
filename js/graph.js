@@ -5,9 +5,26 @@ update_graph = function() {
     for(var i=0; i<statecount; i++) {
         var state = new Object()
         state.index = i
-        state.x = randomInt(100,1000)
-        state.y = randomInt(50,450)
-        states.push(state)        
+        //spread states out (min max distance)
+        state.x = (100+1000)/2
+        state.y = (50+450)/2
+        var bmin = 0;
+        for(j=0; j<5; j++) {
+            var sx = randomInt(50,1050)
+            var sy = randomInt(50,450)
+            
+            var min=10000;
+            for(s in states) {
+                var d = Math.abs( sx-states[s].x )+Math.abs( sy-states[s].y );
+                if(d < min) min = d;
+            }
+            if(min >= bmin) {
+                bmin = min;
+                state.x = sx;
+                state.y = sy;
+            }
+        }
+        states.push(state)
     }
     for(var i=0; i<turing_states.length; i++) {
         var sin  = parseInt(turing_states[i].state_in),
