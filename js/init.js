@@ -12,7 +12,7 @@ $(document).ready(function() {
         $('.selectednav').removeClass('selectednav');
         $(this).addClass('selectednav');
     })
-    $("#machine").addClass("visiblepane")
+    $("#graph").addClass("visiblepane")
 
     // machine settings init
 	$(".slider").slider({
@@ -34,6 +34,7 @@ $(document).ready(function() {
 	turing_states = [];
 	update_states_table();
     update_alphabet();
+    $("#num-states").keyup();//update_state
     
     // simulation init
     $("#sim-button-step").click(turing_tristep);
@@ -53,12 +54,14 @@ $(document).ready(function() {
     
     
     
-    // graphics init
-    graph = new Raphael(document.getElementById('graphcanvas'), "100%", "500px");
-    $('#graphcanvas').click(function(e) {
+    // graph init
+    graph = new Raphael(document.getElementById('graph-canvas'), "100%", "500px");
+    $("#graph-update").click(update_graph)
+    $("#graph-update").click()
+    /*$('#graphcanvas').click(function(e) {
         graph.circle(e.pageX - this.offsetLeft,
                           e.pageY - this.offsetTop,
                           20).attr({"fill":"#fff"});
-    })
+    })*/
     
 });
