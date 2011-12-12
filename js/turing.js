@@ -33,16 +33,18 @@ turing_write = function() {
     tape = tape.replaceAt(tape_position, randomInt(1).toString());
     update_tape();
 }
+last_move=0;
 turing_move = function() {
-    var old_pos = tape_position
-    
     //why do I put so much effort into randomness
-    tape_position += randomInt(1);
-    if(tape_position>3) tape_position -= randomInt(1);//don't hit wall :P
-    if(tape_position<0) tape_position = 0
+    var move=0;
+    switch (randomInt(3)) {
+        case 0: move-=1; break;
+        case 1: if(last_move==0) move = randomInt(1)-randomInt(1);
+        case 2: move+=1; break;
+    }
+    if(tape_position==0) move = 1
     
-    //keeeeel meeeee
-    var move = tape_position-old_pos;
+    tape_position+=move;
     if(move==0) 
         $("#sim-head-move").text("-"); 
     else if(move>0) 

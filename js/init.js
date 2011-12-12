@@ -15,7 +15,9 @@ $(document).ready(function() {
         	update_graph();
         }
     })
-    $("#graph").addClass("visiblepane")
+    var initpane="simulation"
+    $("#"+initpane).addClass("visiblepane")
+    $("#nav"+initpane).addClass("selectednav")
 
     // machine settings init
 	$(".slider").slider({
