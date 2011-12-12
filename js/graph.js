@@ -5,8 +5,8 @@ update_graph = function() {
     for(var i=0; i<statecount; i++) {
         var state = new Object()
         state.index = i
-        state.x = randomInt(100,400)
-        state.y = randomInt(50,300)
+        state.x = randomInt(100,1000)
+        state.y = randomInt(50,450)
         states.push(state)        
     }
     for(var i=0; i<turing_states.length; i++) {
