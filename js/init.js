@@ -12,7 +12,7 @@ $(document).ready(function() {
         $('.selectednav').removeClass('selectednav');
         $(this).addClass('selectednav');
     })
-    $("#simulation").addClass("visiblepane")
+    $("#machine").addClass("visiblepane")
 
     // machine settings init
 	$(".slider").slider({
@@ -27,11 +27,13 @@ $(document).ready(function() {
 	$('#add_instruction').click(add_instruction);
 	
 	//$("select").chosen();
+    $("#alphabet").blur(update_alphabet);
 	$("#final_states").chosen().change(update_states_table);
 	$("#tabs").tabs();
 	
 	turing_states = [];
 	update_states_table();
+    update_alphabet();
     
     // simulation init
     $("#sim-button-step").click(turing_tristep);

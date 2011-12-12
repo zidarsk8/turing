@@ -38,12 +38,28 @@ handle_slider = function(event, ui){
 				}
 			});
 			
+            //I don't think you have to generate options above anymore:
+            update_alphabet()            
+            
 			//chosen seems to be slow
 			//$('.input').chosen();
 			break;
 			
 	};
 };
+
+update_alphabet = function() {
+    var alpha = $("#alphabet").val().split(",");
+    if($.inArray("B", alpha)==-1) alpha.push("B")
+
+    var states = $('.input_trails, .output_trails'); 
+    states.find('option').remove().end();
+    var selects = states.children()
+    for(var i=0; i < alpha.length; i++) {
+        selects.append('<option value="'+alpha[i]+'">'+alpha[i]+'</option>');
+    }
+    states.trigger("liszt:updated");
+}
 
 add_state = function(){
 	var value = parseInt(this.value);
