@@ -1,7 +1,7 @@
-var tape = "", tape_position=0, turingTime=0;
+var tape = "", tape_position=0, turingTime=0, timeStep=500;
 
 turing_start = function() {
-    turingTime = window.setInterval(turing_step, 800);
+    turingTime = window.setInterval(turing_step, timeStep);
 }
 turing_pause = function() {
     clearInterval(turingTime)
@@ -11,9 +11,9 @@ var turingTristep=0;
 turing_tristep = function() {//for manual stepping
     //don't even try to imagine the possible time-related bugs herein :)
     clearInterval(turingTime)
-    window.setTimeout(turing_step, 800);   
-    window.setTimeout(turing_step, 800*2);   
-    window.setTimeout(turing_step, 800*3);   
+    window.setTimeout(turing_step, timeStep);   
+    window.setTimeout(turing_step, timeStep*2);   
+    window.setTimeout(turing_step, timeStep*3);   
 }
 turing_step = function() {
     switch(turingTristep){
@@ -38,11 +38,15 @@ turing_move = function() {
     //why do I put so much effort into randomness
     var move=0;
     switch (randomInt(3)) {
-        case 0: move-=1; break;
+        case 0: move=-1; break;
         case 1: if(last_move==0) move = randomInt(1)-randomInt(1);
-        case 2: move+=1; break;
+        case 2: move=+1; break;
     }
     if(tape_position==0) move = 1
+    if(tape_position>=tape.length-2) {
+        move = -1+randomInt(1)
+        if(randomInt(5) == 0) move = 1
+    }
     
     tape_position+=move;
     if(move==0) 
@@ -74,7 +78,7 @@ update_tape = function(val) {
 // generic crap
 boldblink = function(elt){
     elt.addClass("bold");
-    window.setTimeout(function() { elt.removeClass('bold') }, 800);
+    window.setTimeout(function() { elt.removeClass('bold') }, timeStep-50);
 }
 String.prototype.replaceAt=function(index, ch) {
       return this.substr(0, index) + ch + this.substr(index+ch.length);
