@@ -24,22 +24,27 @@ update_graph = function() {
                 state.y = sy;
             }
         }
+
         states.push(state)
     }
     for(var i=0; i<turing_states.length; i++) {
         var sin  = parseInt(turing_states[i].state_in),
             sout = parseInt(turing_states[i].state_out)
             
-        var xy = shorten_line(states[sin].x,states[sin].y,states[sout].x,states[sout].y, 20)
+        var xy = shorten_line(states[sin].x,states[sin].y,states[sout].x,states[sout].y, 22)
         var x=xy[0], y=Math.floor(xy[1])
 
-        /*graph.path("M"+states[sin].x+" "+states[sin].y+
-                   "L"+x+" "+y);*/
-        graph.arrow(states[sin].x, states[sin].y, x, y, 20);
+        graph.arrow(states[sin].x, states[sin].y, x, y, 10).attr({"stroke-width":"2px"})
+        
+        x = (x+states[sin].x)/2
+        y = (y+states[sin].y)/2
+        
+        graph.text(x,y-15,"("+turing_states[i].input_trail+","+turing_states[i].input_trail+","+turing_states[i].tape_move+")").attr({"font":"16px serif", "text-anchor":"middle","fill":"#001111"});
+        
     }
     for(var i=0; i<statecount; i++) {
-        //graph.circle(states[i].x, states[i].y, 20).attr({"stroke-width":"2px","fill":"#fff"});
-        graph.text(states[i].x,states[i].y,"q"+i).attr({"font":"14px serif", "text-anchor":"middle","fill":"#001111"});
+        graph.circle(states[i].x, states[i].y, 20).attr({"stroke-width":"2px","fill":"#fff"});
+        graph.text(states[i].x,states[i].y,"q"+i).attr({"font":"16px serif", "text-anchor":"middle","fill":"#001111"});
     }
 
 }
@@ -63,8 +68,8 @@ Raphael.fn.arrow = function(x1, y1, x2, y2, size) {
   var x2b = x2 + Math.cos(a45m) * size;
   var y2b = y2 + Math.sin(a45m) * size;
   return this.path(
-    "M"+x1+" "+y1+"L"+x1a+" "+y1a+
-    "M"+x1+" "+y1+"L"+x1b+" "+y1b+
+   /* "M"+x1+" "+y1+"L"+x1a+" "+y1a+
+    "M"+x1+" "+y1+"L"+x1b+" "+y1b+*/
     "M"+x1+" "+y1+"L"+x2+" "+y2+
     "M"+x2+" "+y2+"L"+x2a+" "+y2a+
     "M"+x2+" "+y2+"L"+x2b+" "+y2b
