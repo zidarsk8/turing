@@ -1,19 +1,13 @@
 turing = {
-
-	finalStates = [],
-	initState = '',
-
+	finalStates : [],
+	initState : '',
 	delta : [{
 		fromState: '',
 		fromSymbol: [ /*tape*/ [ /*track*/ ]],
 		toState: '',
 		toSymbol: [ /*tape*/ [ /*track*/ ]],
-		move: []
-	}],
-	
-	//possible names for the next var	
-	//m-configuration, the state formula, the complete configuration
-	//instantaneous description, state of the system
+		move: [
+	]},
 	SystemStates : [/* k-ti nivo stanj, stanja po k korakih*/  [{
 		state: "", 
 		allTapes: [ /*dimension*/ [ /*tape*/ [ /*track*/ [ /*znaki*/ ]]]], 
@@ -33,15 +27,16 @@ turing = {
 	 * example:
 	 * deltaString = ['qx a b c d -> qy d e B c R S ',...] , numTapes = 2 numTracks = 2
 	 **/
-	parseDeltaString : function(deltaString, numTapes, numTracks){
-		for (var s in deltaString){
-			d = {}
-			a = s.trim().split(' ')
+	parseDeltaString : function(ds, numTapes, numTracks){
+		this.delta = []
+		for (var i in ds){
+			var d = {}
+			var a = ds[i].trim().split(' ')
 			d.fromState = a[0]
-			d.toState = s.split(">")[1].trim().split(' ')[0]
+			d.toState = ds[i].split('>')[1].trim().split(' ')[0]
 			d.move = a.splice(a.length - numTapes)
-			fs = a.slice(1,numTapes*numTracks+1)
-			ts = a.slice(a.lenth - numTapes*numTracks)
+			var fs = a.slice(1,numTapes*numTracks+1)
+			var ts = a.slice(a.length - numTapes*numTracks)
 			d.fromSymbol = []
 			d.toSymbol = []
 			for (var i=0; i < numTapes; i++){
