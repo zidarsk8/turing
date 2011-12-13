@@ -1,3 +1,6 @@
 [submodule "js/lib/chosen"]
 	path = js/lib/chosen
 	url = https://github.com/harvesthq/chosen.git
+[submodule "js/lib/underscore"]
+	path = js/lib/underscore
+	url = https://github.com/documentcloud/underscore.git
