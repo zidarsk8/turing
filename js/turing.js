@@ -1,89 +1,41 @@
-var tape = "", tape_position=0, turingTime=0, timeStep=500;
+turing = {
 
-turing_start = function() {
-    turingTime = window.setInterval(turing_step, timeStep);
-}
-turing_pause = function() {
-    clearInterval(turingTime)
-}
+	finalStates = [],
+	initState = '',
 
-var turingTristep=0;
-turing_tristep = function() {//for manual stepping
-    //don't even try to imagine the possible time-related bugs herein :)
-    clearInterval(turingTime)
-    window.setTimeout(turing_step, timeStep);   
-    window.setTimeout(turing_step, timeStep*2);   
-    window.setTimeout(turing_step, timeStep*3);   
-}
-turing_step = function() {
-    switch(turingTristep){
-        case 0: turing_read(); break;
-        case 1: turing_write(); break;
-        case 2: turing_move(); break;
-    }
-    turingTristep = (turingTristep+1)%3
-}
+	delta : [{
+		fromState: '',
+		fromSymbol: [ /*trak*/ [ /*sled*/ ]],
+		toState: '',
+		toSymbol: [ /*trak*/ [ /*sled*/ ]],
+		move: []
+	}],
+	
+	//possible names for the next var	
+	//m-configuration
+	//the state formula
+	//the complete configuration
+	//instantaneous description
+	//state of the system
+	SystemStates : [{
+		state: "", 
+		tape: [ /*dimenzija*/ [ /*trak*/ [ /*sled*/ [ /*znaki*/ ]]]],
+		dimenzija :0,
+		znak :0
+	}],
 
-turing_read = function() {
-    $("#sim-head-input").text(tape[tape_position])
-    boldblink($("#sim-head-input"))    
-    update_tape();
-}
-turing_write = function() {
-    tape = tape.replaceAt(tape_position, randomInt(1).toString());
-    update_tape();
-}
-last_move=0;
-turing_move = function() {
-    //why do I put so much effort into randomness
-    var move=0;
-    switch (randomInt(3)) {
-        case 0: move=-1; break;
-        case 1: if(last_move==0) move = randomInt(1)-randomInt(1);
-        case 2: move=+1; break;
-    }
-    if(tape_position==0) move = 1
-    if(tape_position>=tape.length-2) {
-        move = -1+randomInt(1)
-        if(randomInt(5) == 0) move = 1
-    }
-    
-    tape_position+=move;
-    if(move==0) 
-        $("#sim-head-move").text("-"); 
-    else if(move>0) 
-        $("#sim-head-move").text(">"); 
-    else if(move<0) 
-        $("#sim-head-move").text("<");
+	addDelta : function(d){
+		//check if identical delta exists
+		for (var i in this.deltas)
+			if (_.isEqual(d,i))
+				return false
+		
+		//add delta function
+		this.delta.push(d)
+	},
 
-    boldblink($("#sim-head-move"))
-    
-    update_tape();
+	getPossibleDeltas : function(){
+		
+	}
+	
 }
-
-
-
-update_tape = function(val) {
-    //set new tape value if any
-    if(val) tape = val;
-    
-    //redraw
-    $("#sim-tape").empty()
-    for(var i = 0; i < tape.length; i++) {
-        $("#sim-tape").append("<span class='sim-tape-loc"+ ((i==tape_position)?" sim-current":"") +"'>"+tape[i]+"</span>");
-    }
-}
-
-
-// generic crap
-boldblink = function(elt){
-    elt.addClass("bold");
-    window.setTimeout(function() { elt.removeClass('bold') }, timeStep-50);
-}
-String.prototype.replaceAt=function(index, ch) {
-      return this.substr(0, index) + ch + this.substr(index+ch.length);
-}
-function randomInt(min, max) {
-    if(!max) return Math.floor(Math.random()*(min + 1))
-    else return Math.floor(Math.random() * (max - min + 1)) + min;
-}  
