@@ -6,8 +6,8 @@ turing = {
 		fromSymbol: [ /*tape*/ [ /*track*/ ]],
 		toState: '',
 		toSymbol: [ /*tape*/ [ /*track*/ ]],
-		move: [
-	]},
+		move: []
+	}],
 	SystemStates : [/* k-ti nivo stanj, stanja po k korakih*/  [{
 		state: "", 
 		allTapes: [ /*dimension*/ [ /*tape*/ [ /*track*/ [ /*znaki*/ ]]]], 
