@@ -144,7 +144,6 @@ tbody td {
   background: #bbb;
   font-size: 1.143em;
   line-height: 30px;
-  min-height:450px;
   margin: 0 auto 2em auto;
   padding: 10px;
   width: 1100px;
@@ -152,7 +151,6 @@ tbody td {
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
-  display:none;
 }
 .visiblepane {
   display:block !important;
@@ -188,20 +186,6 @@ tbody td {
 	clear: both;
 }
 
-/*#banner nav {
-  background: #aaa;
-  font-size: 1.143em;
-  height: 40px;
-  line-height: 30px;
-  margin: 0 auto 2em auto;
-  padding: 0;
-  text-align: cener;
-  width: 1100px;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-}
-/* Main Nav */
 #banner nav {
     font-weight: bold;
     border: 1px solid #999;
@@ -325,8 +309,25 @@ nav .selectednav {
 }
 
 
+.sidePane {
+  background: #bbb;
+  font-size: 1.143em;
+  line-height: 30px;
+  margin: 0 auto 2em auto;
+  padding: 10px;
+  width: 270px;
+  border: 1px solid #888;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
 
-
+.slider{
+	margin: 10px 10px 4px 15px;
+	width: 140px;
+	clear: both;
+	display: block;
+}
 
 
 

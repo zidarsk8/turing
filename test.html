@@ -10,6 +10,7 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/turing.css">
 	<link rel="stylesheet" href="js/lib/chosen/chosen/chosen.css">
 	<link rel="stylesheet" href="css/flick/jquery-ui-1.8.16.custom.css">
 </head>
@@ -17,18 +18,37 @@
 <body>
 
 
-<!--     <section class="body">
-TODO: everything.
-</section>
+<header id="banner">
+	<div class="body" id="header">
+		<h1>Turing Machine Simulator</h1>
+	</div>
+</header>
+	
+	
+<div class="pane">
 
-<footer id="contentinfo" class="body">
-footer
-</footer>
--->
+	<div class="sidePane">
+		<div class="slider" id="num_trails"></div>
+		<div class="slider" id="num_tapes"></div>
+		<div class="slider" id="num_dimensions"></div>
+		<input type="checkbox" id="unlimited_tape"/>
+		<input type="checkbox" id="nondeterministic"/>
+		
+			<div contenteditable="true" class="turingCodeEditor">
+		init: q0<br>
+		final: q1 q2 q3
+			</div>
+		
+	</div>
+</div>
+
 <script type="text/javascript" src="js/lib/jquery-1.7.min.js"></script>
 <script type="text/javascript" src="js/lib/chosen/chosen/chosen.jquery.min.js"></script>
 <script type="text/javascript" src="js/lib/jquery-ui-1.8.16.custom.min.js"></script>
 <script type="text/javascript" src="js/lib/raphael-min.js"></script>
+<script type="text/javascript" src="js/lib/underscore/underscore-min.js"></script>
+<script type="text/javascript" src="js/eventHandlers.js"></script>
 <script type="text/javascript" src="js/turing.js"></script>
+<script type="text/javascript" src="js/init.js"></script>
 </body>
 </html>

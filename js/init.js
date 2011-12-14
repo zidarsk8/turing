@@ -1,7 +1,7 @@
 var  graph; // probably doing it wrong...
 
 $(document).ready(function() {
-
+	/*
     // random TODO
     //// save machine and view to cookies
 
@@ -18,16 +18,16 @@ $(document).ready(function() {
     var initpane="simulation"
     $("#"+initpane).addClass("visiblepane")
     $("#nav"+initpane).addClass("selectednav")
-
+    /**/
     // machine settings init
 	$(".slider").slider({
 		value:1,
 		min: 1,
 		max: 10,
 		step: 1,
-		slide: handle_slider
+		slide: handle_slider,
 	});
-	$("#num-states").keyup(add_state);
+	/*$("#num-states").keyup(add_state);
     
 	$('#add_instruction').click(add_instruction);
 	
@@ -67,6 +67,6 @@ $(document).ready(function() {
         graph.circle(e.pageX - this.offsetLeft,
                           e.pageY - this.offsetTop,
                           20).attr({"fill":"#fff"});
-    })*/
+    })/**/
     
 });

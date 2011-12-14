@@ -1,4 +1,6 @@
 turing = {
+	numTapes : 1,
+	numTracks : 1,
 	finalStates : [],
 	initState : '',
 	delta : [{
@@ -23,11 +25,11 @@ turing = {
 		this.delta.push(d) //add delta function
 	},
 	
-	/**
-	 * example:
-	 * deltaString = ['qx a b c d -> qy d e B c R S ',...] , numTapes = 2 numTracks = 2
-	 **/
+	
+	 // deltaString = ['qx a b c d -> qy d e B c R S ',...] , numTapes = 2 numTracks = 2
 	parseDeltaString : function(ds, numTapes, numTracks){
+		this.numTapes = numTapes
+		this.numTracks = numTracks
 		this.delta = []
 		for (var i in ds){
 			var d = {}
@@ -45,6 +47,10 @@ turing = {
 			}
 			this.addDelta(d)
 		}
+	},
+	
+	setInitialState : function(state, trackWord){
+		
 	},
 	
 	getPossibleDeltas : function(){
