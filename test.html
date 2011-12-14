@@ -28,11 +28,11 @@
 <div class="pane">
 
 	<div class="sidePane">
-		<div class="slider" id="num_trails"></div>
-		<div class="slider" id="num_tapes"></div>
-		<div class="slider" id="num_dimensions"></div>
-		<input type="checkbox" id="unlimited_tape"/>
-		<input type="checkbox" id="nondeterministic"/>
+		<div class="sliderContainer"><div class="slider" id="numTapes"></div> <span id="numTapesLabel">1 Tape</span> </div>
+		<div class="sliderContainer"><div class="slider" id="numTracks"></div> <span id="numTracksLabel">1 Track</span> </div>
+		<div class="sliderContainer"><div class="sliderD" id="numDimensions"></div> <span id="numDimensionsLabel">1 Dimension</span> </div>
+		<input type="checkbox" id="unlimited_tape"/> Unlimited tape <br>
+		<input type="checkbox" id="nondeterministic"/> Nondeterministic <br>
 		
 			<div contenteditable="true" class="turingCodeEditor">
 		init: q0<br>

@@ -23,7 +23,14 @@ $(document).ready(function() {
 	$(".slider").slider({
 		value:1,
 		min: 1,
-		max: 10,
+		max: 5,
+		step: 1,
+		slide: handle_slider,
+	});
+	$(".sliderD").slider({
+		value:1,
+		min: 1,
+		max: 2,
 		step: 1,
 		slide: handle_slider,
 	});

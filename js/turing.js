@@ -1,6 +1,7 @@
 turing = {
 	numTapes : 1,
 	numTracks : 1,
+	numDimensions : 1,
 	finalStates : [],
 	initState : '',
 	delta : [{

@@ -324,9 +324,24 @@ nav .selectednav {
 
 .slider{
 	margin: 10px 10px 4px 15px;
-	width: 140px;
-	clear: both;
-	display: block;
+	width: 120px;
+	float: left;
+}
+
+.sliderD{
+	margin: 10px 10px 4px 15px;
+	width: 60px;
+	float: left;
+}
+
+.sliderContainer{
+	height: 36px;
+}
+
+.sliderContainer span{
+	height: 36px;
+	padding: 7px 0px 0px 15px;
+	vertical-align: middle;
 }
 
 
