@@ -20,7 +20,7 @@ turing = {
 	}]],
 
 	addDelta : function(d){
-		for (var i in this.deltas) //check if identical delta exists
+		for (var i in this.delta) //check if identical delta exists
 			if (_.isEqual(d,i))
 				return false
 		this.delta.push(d) //add delta function
@@ -28,28 +28,26 @@ turing = {
 	
 	
 	 // deltaString = ['qx a b c d -> qy d e B c R S ',...] , numTapes = 2 numTracks = 2
-	parseDeltaString : function(ds, numTapes, numTracks, det){
-		var check = this.checkDeltaSyntax(ds, numTapes, numTracks, det)
+	parseDeltaString : function(ds){
+		var check = this.checkDeltaSyntax(ds)
 		if (check.ok){
 			var dsa = check.dsa
-			this.numTapes = numTapes
-			this.numTracks = numTracks
 			this.delta = []
 			for (var i in check.dsa){
 				var d = {}
-				var a = chekc.dsa[i].trim().split(' ')
-			d.fromState = a[0]
-			d.toState = check.dsa[i].split('>')[1].trim().split(' ')[0]
-			d.move = a.splice(a.length - numTapes)
-			var fs = a.slice(1,numTapes*numTracks+1)
-			var ts = a.slice(a.length - numTapes*numTracks)
-			d.fromSymbol = []
-			d.toSymbol = []
-			for (var i=0; i < numTapes; i++){
-				d.fromSymbol.push(fs.splice(0,numTracks))
-				d.toSymbol.push(ts.splice(0,numTracks))
-			}
-			this.addDelta(d)
+				var a = check.dsa[i].trim().split(' ')
+				d.fromState = a[0]
+				d.toState = check.dsa[i].split("-&gt;")[1].trim().split(' ')[0]
+				d.move = a.splice(a.length - this.numTapes)
+				var fs = a.slice(1,this.numTapes*this.numTracks+1)
+				var ts = a.slice(a.length - this.numTapes*this.numTracks)
+				d.fromSymbol = []
+				d.toSymbol = []
+				for (var i=0; i < this.numTapes; i++){
+					d.fromSymbol.push(fs.splice(0,this.numTracks))
+					d.toSymbol.push(ts.splice(0,this.numTracks))
+				}
+				this.addDelta(d)
 			}
 		}
 		return check
@@ -67,8 +65,24 @@ turing = {
 		
 	},
 	
-	checkDeltaSyntax : function(ds, numTapes, numTracks, det){
-		var check = {ok:false, dsa:ds.split("\n")}
+	checkDeltaSyntax : function(ds){
+		var check = {ok:true, dsa:[] , okArr:[]}
+		var moves = this.numDimensions == 2 ? "LRSUP" : "LRS"
+		var cok = false
+		var arr = ds.replace(/\n/g,"").split("<br>").slice(2)
+		for (i in arr){
+			if (arr[i].trim().length > 10 ){		
+				var s = _.map(arr[i].replace(/<.*?>/g,"").split("-&gt;"),function(s){return s.trim().split(" ")})
+				cok = s.length == 2 && s[0].length == 1+this.numTapes*this.numTracks && s[1].length == 1+this.numTapes*this.numTracks + this.numTapes
+				cok &= _.reduce(_.map(s[0].slice(1), function(n){return n.length ==1}),function(a,b){return a && b})
+				cok &= _.reduce(_.map(s[1].slice(1), function(n){return n.length ==1}),function(a,b){return a && b})
+				cok &= _.reduce(_.map(s[1].slice(s[1].length-this.numTapes), function(n){return moves.indexOf(n) != -1 }),function(a,b){return a && b}) 
+				check.ok &= cok
+				check.okArr.push(cok)
+				check.dsa.push(arr[i].replace(/<.*?>/g,""))
+			}
+		}
+		check.ok &= cok
 		return check
 	}
 

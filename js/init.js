@@ -20,9 +20,7 @@ $(document).ready(function() {
 	
 	$("#turingCodeEditor").keyup(function(){
 		//console.log($(this).html().split("<br>"))
-		//$(this).html($(this).html().replace(/<br>/g,"<br>\n").replace(/\n\n/g,"\n"))
-		//turing.parseDeltaString($(this).html())
-		console.log(getCursorPos());
+		turing.parseDeltaString($(this).html(),$("#numTapes").val(),$("#numTracks").val(),$("#numDimensions").val())
 	})
 	
 	
