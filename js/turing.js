@@ -28,15 +28,18 @@ turing = {
 	
 	
 	 // deltaString = ['qx a b c d -> qy d e B c R S ',...] , numTapes = 2 numTracks = 2
-	parseDeltaString : function(ds, numTapes, numTracks){
-		this.numTapes = numTapes
-		this.numTracks = numTracks
-		this.delta = []
-		for (var i in ds){
-			var d = {}
-			var a = ds[i].trim().split(' ')
+	parseDeltaString : function(ds, numTapes, numTracks, det){
+		var check = this.checkDeltaSyntax(ds, numTapes, numTracks, det)
+		if (check.ok){
+			var dsa = check.dsa
+			this.numTapes = numTapes
+			this.numTracks = numTracks
+			this.delta = []
+			for (var i in check.dsa){
+				var d = {}
+				var a = chekc.dsa[i].trim().split(' ')
 			d.fromState = a[0]
-			d.toState = ds[i].split('>')[1].trim().split(' ')[0]
+			d.toState = check.dsa[i].split('>')[1].trim().split(' ')[0]
 			d.move = a.splice(a.length - numTapes)
 			var fs = a.slice(1,numTapes*numTracks+1)
 			var ts = a.slice(a.length - numTapes*numTracks)
@@ -47,7 +50,9 @@ turing = {
 				d.toSymbol.push(ts.splice(0,numTracks))
 			}
 			this.addDelta(d)
+			}
 		}
+		return check
 	},
 	
 	setInitialState : function(state, trackWord){
@@ -60,6 +65,11 @@ turing = {
 	
 	makeNextMove : function(){
 		
-	}
+	},
 	
+	checkDeltaSyntax : function(ds, numTapes, numTracks, det){
+		var check = {ok:false, dsa:ds.split("\n")}
+		return check
+	}
+
 }

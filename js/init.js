@@ -1,39 +1,36 @@
 var  graph; // probably doing it wrong...
 
 $(document).ready(function() {
-	/*
-    // random TODO
-    //// save machine and view to cookies
-
-    // navigation
-    $('nav > a').click(function(a) {
-        $('.visiblepane').removeClass('visiblepane');
-        $('#'+this.id.substring(3)).addClass('visiblepane');
-        $('.selectednav').removeClass('selectednav');
-        $(this).addClass('selectednav');
-        if(this.id.substring(3)=="graph") {
-        	update_graph();
-        }
-    })
-    var initpane="simulation"
-    $("#"+initpane).addClass("visiblepane")
-    $("#nav"+initpane).addClass("selectednav")
-    /**/
-    // machine settings init
+	
 	$(".slider").slider({
 		value:1,
 		min: 1,
 		max: 5,
 		step: 1,
 		slide: handle_slider,
-	});
-	$(".sliderD").slider({
+	})
+	
+	$(".sliderDim").slider({
 		value:1,
 		min: 1,
 		max: 2,
 		step: 1,
 		slide: handle_slider,
-	});
+	})
+	
+	$("#turingCodeEditor").keyup(function(){
+		//console.log($(this).html().split("<br>"))
+		//$(this).html($(this).html().replace(/<br>/g,"<br>\n").replace(/\n\n/g,"\n"))
+		//turing.parseDeltaString($(this).html())
+		console.log(getCursorPos());
+	})
+	
+	
+	
+	
+	
+	
+	
 	/*$("#num-states").keyup(add_state);
     
 	$('#add_instruction').click(add_instruction);

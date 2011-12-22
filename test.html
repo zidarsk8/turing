@@ -1,54 +1,52 @@
 <!doctype html>
 <html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title>Turing Machine Simulator</title>
-	<meta name="description" content="Turing Machine Simulator">
-	<meta name="author" content="psywerx">
-	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="css/main.css">
-	<link rel="stylesheet" href="css/turing.css">
-	<link rel="stylesheet" href="js/lib/chosen/chosen/chosen.css">
-	<link rel="stylesheet" href="css/flick/jquery-ui-1.8.16.custom.css">
-</head>
+		<title>Turing Machine Simulator</title>
+		<meta name="description" content="Turing Machine Simulator">
+		<meta name="author" content="psywerx">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/turing.css">
+		<link rel="stylesheet" href="js/lib/chosen/chosen/chosen.css">
+		<link rel="stylesheet" href="css/flick/jquery-ui-1.8.16.custom.css">
+	</head>
 
-<body>
+	<body>
 
 
-<header id="banner">
-	<div class="body" id="header">
-		<h1>Turing Machine Simulator</h1>
-	</div>
-</header>
-	
-	
-<div class="pane">
-
-	<div class="sidePane">
-		<div class="sliderContainer"><div class="slider" id="numTapes"></div> <span id="numTapesLabel">1 Tape</span> </div>
-		<div class="sliderContainer"><div class="slider" id="numTracks"></div> <span id="numTracksLabel">1 Track</span> </div>
-		<div class="sliderContainer"><div class="sliderD" id="numDimensions"></div> <span id="numDimensionsLabel">1 Dimension</span> </div>
-		<input type="checkbox" id="unlimited_tape"/> Unlimited tape <br>
-		<input type="checkbox" id="nondeterministic"/> Nondeterministic <br>
-		
-			<div contenteditable="true" class="turingCodeEditor">
-		init: q0<br>
-		final: q1 q2 q3
+		<header id="banner">
+			<div class="body" id="header">
+				<h1>Turing Machine Simulator</h1>
 			</div>
-		
-	</div>
-</div>
+		</header>
 
-<script type="text/javascript" src="js/lib/jquery-1.7.min.js"></script>
-<script type="text/javascript" src="js/lib/chosen/chosen/chosen.jquery.min.js"></script>
-<script type="text/javascript" src="js/lib/jquery-ui-1.8.16.custom.min.js"></script>
-<script type="text/javascript" src="js/lib/raphael-min.js"></script>
-<script type="text/javascript" src="js/lib/underscore/underscore-min.js"></script>
-<script type="text/javascript" src="js/eventHandlers.js"></script>
-<script type="text/javascript" src="js/turing.js"></script>
-<script type="text/javascript" src="js/init.js"></script>
-</body>
+
+		<div class="pane">
+
+			<div class="sidePane">
+				<div class="sliderContainer"><div class="slider" id="numTapes"></div> <span id="numTapesLabel">1 Tape</span> </div>
+				<div class="sliderContainer"><div class="slider" id="numTracks"></div> <span id="numTracksLabel">1 Track</span> </div>
+				<div class="sliderContainer"><div class="sliderDim" id="numDimensions"></div> <span id="numDimensionsLabel">1 Dimension</span> </div>
+				<input type="checkbox" id="unlimited_tape"/> Unlimited tape <br>
+				<input type="checkbox" id="nondeterministic"/> Nondeterministic <br>
+
+				<div contenteditable="true" class="turingCodeEditor" id="turingCodeEditor" >init: q0<br>final: q1 q2 q3</div>
+
+			</div>
+		</div>
+
+		<script type="text/javascript" src="js/lib/jquery-1.7.min.js"></script>
+		<script type="text/javascript" src="js/lib/chosen/chosen/chosen.jquery.min.js"></script>
+		<script type="text/javascript" src="js/lib/jquery-ui-1.8.16.custom.min.js"></script>
+		<script type="text/javascript" src="js/lib/raphael-min.js"></script>
+		<script type="text/javascript" src="js/lib/underscore/underscore-min.js"></script>
+		<script type="text/javascript" src="js/eventHandlers.js"></script>
+		<script type="text/javascript" src="js/functions.js"></script>
+		<script type="text/javascript" src="js/turing.js"></script>
+		<script type="text/javascript" src="js/init.js"></script>
+	</body>
 </html>
