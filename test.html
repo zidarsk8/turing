@@ -10,7 +10,7 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1">
 		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="css/main.css">
-		<link rel="stylesheet" href="css/turing.css">
+		<link rel="stylesheet" href="css/tmEditor.css">
 		<link rel="stylesheet" href="js/lib/chosen/chosen/chosen.css">
 		<link rel="stylesheet" href="css/flick/jquery-ui-1.8.16.custom.css">
 	</head>
@@ -37,6 +37,21 @@
 				<div contenteditable="true" class="turingCodeEditor" id="turingCodeEditor" >init: q0<br>final: q1 q2 q3</div>
 
 			</div>
+			<div class="whereStuffHappens">
+				<textarea cols="44" rows="5" id="tmInputWord"></textarea>
+				makeprettybutonzzzz<br>
+				<input type="button" id="check_b" value="check syntax"><br>
+				<input type="button" id="load_b" value="load"><br>
+				<input type="button" id="play_b" value="play"><br>
+				<input type="button" id="next_b" value="next"><br>
+				<input type="button" id="stop_b" value="stop"><br>
+				<input type="button" id="reset_b" value="reset"><br>
+				<input type="button" id="back_b" value="back"><br>
+			</div>
+			<div class="sidePane">
+			history should be here !!
+			</div>
+			<div class="clearBoth"></div>
 		</div>
 
 		<script type="text/javascript" src="js/lib/jquery-1.7.min.js"></script>
@@ -45,6 +60,7 @@
 		<script type="text/javascript" src="js/lib/raphael-min.js"></script>
 		<script type="text/javascript" src="js/lib/underscore/underscore-min.js"></script>
 		<script type="text/javascript" src="js/eventHandlers.js"></script>
+		<script type="text/javascript" src="js/buttonControls.js"></script>
 		<script type="text/javascript" src="js/functions.js"></script>
 		<script type="text/javascript" src="js/turing.js"></script>
 		<script type="text/javascript" src="js/init.js"></script>

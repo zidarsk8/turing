@@ -11,13 +11,7 @@ turing = {
 		toSymbol: [ /*tape*/ [ /*track*/ ]],
 		move: []
 	}],
-	SystemStates : [/* k-ti nivo stanj, stanja po k korakih*/  [{
-		state: "", 
-		allTapes: [ /*dimension*/ [ /*tape*/ [ /*track*/ [ /*znaki*/ ]]]], 
-		dimension: 0,
-		symbol: 0,
-		parentState: {index: 0, delta: 0} /* stanje iz katerega smo prisli in delta prehod */
-	}]],
+	systemStates : [],
 
 	addDelta : function(d){
 		for (var i in this.delta) //check if identical delta exists
@@ -32,6 +26,8 @@ turing = {
 		var check = this.checkDeltaSyntax(ds)
 		if (check.ok){
 			this.delta = []
+			this.initState = check.initState
+			this.finalStates = check.finalStates
 			for (var i in check.dsa){
 				var d = {}
 				var a = check.dsa[i].trim().split(' ')
@@ -52,8 +48,62 @@ turing = {
 		return check
 	},
 	
-	setInitialState : function(state, trackWord){
-		
+	setInitialState : function(trackWord){
+		var tp = []
+		for (var i=0; i<this.numTapes; i++) { tp.push(0)}
+		var s = {
+			state: this.initState, 
+			tapes: [[[trackWord.split("")]]], 
+			dimPos: 0,
+			tapePos: tp,
+			possibleDeltas: []
+		}
+		console.log(s)
+		this.addRemoveBlanks(s);
+		console.log(s)
+		s.possibleDeltas = this.getDeltasFromState(s)
+		this.systemStates = s
+	},
+	
+	addRemoveBlanks : function(s){
+		for (var d in s.tapes){
+			for (var i in s.tapes[d]){
+				//dodamo padding traku uspredaj
+				while (s.tapePos[i] < 3){
+					for (var j in s.tapes[d][i]){
+						s.tapes[d][i][j].unshift("B")
+					}
+					s.tapePos[i]++
+				}
+				//se appendamo Blanke na koncu 
+				for (var j in s.tapes[d][i]){
+					while (s.tapes[d][i][j].length < s.tapePos[i]+3){
+						s.tapes[d][i][j].push("B")
+					}
+				}
+			}
+		}
+	},
+
+	getDeltasFromState: function(s){
+		//TODO: return all possible next delta functions
+		var possible = []
+		for (var d in this.delta){
+			if (s.state == this.delta[d].fromState){
+				var ok = true;
+				for (var i=0; i<this.numTracks; i++){
+					for (var j=0; j<this.numTracks; j++){
+						if (s.tapes[s.dimPos][i][j][s.tapePos] != this.delta[d].fromSymbol[i][j]){
+							ok = false
+						}
+					}
+				}
+				if (ok){
+					possible.push(d)
+				}
+			}
+		}
+		return possible
 	},
 	
 	getPossibleDeltas : function(){
@@ -68,7 +118,19 @@ turing = {
 		var check = {ok:true, dsa:[] , okArr:[]}
 		var moves = this.numDimensions == 2 ? "LRSUP" : "LRS"
 		var cok = false
-		var arr = ds.replace(/\n/g,"").split("<br>").slice(2)
+		var arr = ds.replace(/\n/g,"").split("<br>")
+		if (arr.length <3 || arr[0].indexOf("init: ")==-1 || 
+				arr[1].indexOf("final: ")==-1 || 
+				arr[1].trim().split(" ").length < 2 || 
+				arr[0].trim().split(" ").length < 2){
+			check.ok = false
+			return check
+		}else{
+			check.initState = arr[0].trim().split(" ")[1]
+			check.finalStates = arr[1].trim().split(" ").slice(1)
+		}
+
+		arr = arr.slice(2)
 		for (var i in arr){
 			if (arr[i].trim().length > 10 ){		
 				var s = _.map(arr[i].replace(/<.*?>/g,"").split("-&gt;"),function(s){return s.trim().split(" ")})
@@ -80,7 +142,7 @@ turing = {
 				check.ok &= cok
 				check.okArr.push(cok)
 				check.dsa.push(arr[i].replace(/<.*?>/g,""))
-				console.log(check)
+				//console.log(check)
 			}
 		}
 		check.ok &= cok
