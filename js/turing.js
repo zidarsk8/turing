@@ -1,4 +1,5 @@
 turing = {
+	paddingSize: 2,
 	numTapes : 1,
 	numTracks : 1,
 	numDimensions : 1,
@@ -61,26 +62,37 @@ turing = {
 		console.log(s)
 		this.addRemoveBlanks(s);
 		console.log(s)
-		s.possibleDeltas = this.getDeltasFromState(s)
+		//s.possibleDeltas = this.getDeltasFromState(s)
 		this.systemStates = s
 	},
 	
 	addRemoveBlanks : function(s){
 		for (var d in s.tapes){
-			for (var i in s.tapes[d]){
+			for (var i=0 ; i< this.numTapes ; i++){
+				if (typeof s.tapes[d][i] == "undefined" ){
+					s.tapes[d].push([])
+				}
+				
+				//appendamo Blanke na koncu 
+				for (var j=0 ; j<this.numTracks ; j++){
+					if (typeof s.tapes[d][i][j] == "undefined" ){
+						s.tapes[d][i].push([])
+					}
+					while (s.tapes[d][i][j].length < s.tapePos[i]+this.paddingSize || 
+							s.tapes[d][i][j][s.tapes[d][i][j].length-this.paddingSize] != "B"){
+						s.tapes[d][i][j].push("B")
+					}
+				}
+				
 				//dodamo padding traku uspredaj
-				while (s.tapePos[i] < 3){
-					for (var j in s.tapes[d][i]){
+				while (s.tapePos[i] < this.paddingSize){
+					for (var j=0 ; j<this.numTracks ; j++){
 						s.tapes[d][i][j].unshift("B")
 					}
 					s.tapePos[i]++
 				}
-				//se appendamo Blanke na koncu 
-				for (var j in s.tapes[d][i]){
-					while (s.tapes[d][i][j].length < s.tapePos[i]+3){
-						s.tapes[d][i][j].push("B")
-					}
-				}
+				//TODO: na s.tapes[d][i][j] je treba odstranit odvecne blank znake
+				// tisto kar je vec kot padding da imamo pol B B B b e s e d a B B B 
 			}
 		}
 	},
