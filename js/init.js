@@ -23,6 +23,10 @@ $(document).ready(function() {
 		turing.parseDeltaString($(this).html(),$("#numTapes").val(),$("#numTracks").val(),$("#numDimensions").val())
 	})
 	
+	$("#turingCodeEditor").bind('paste', function(e){ 
+		console.log(e) 
+	})
+
 	
 	
 	
