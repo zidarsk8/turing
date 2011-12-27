@@ -1,12 +1,10 @@
 var graph = {
-	graph : new Raphael(document.getElementById('graph-canvas'), "100%", "500px"),
+	graph : new Raphael(document.getElementById('graph-canvas'), "100%", "650px"),
 	update : function() {
 		this.graph.clear()
 		var states = turing.graphStates
 		var deltas = turing.delta
 		if (_.keys(states).length == 0) return
-		
-		console.log("should be drawing graph")
 		
 		for (var d in deltas){
 			var sin = deltas[d].fromState
@@ -34,12 +32,14 @@ var graph = {
 			var r = this.rotatePoints(tx,ty,x2,y2, Raphael.rad(Raphael.angle(x2,y2,x1,y1)+30))
 			tx = r.x
 			ty = r.y
-			var anchor = "middle"
+			if (x1 == x2 && y1==y2) tx+=55
+			
+			var anchor = "start"
 			if (x1<x2 && y1<y2) anchor = "start"
 			if (x1>x2 && y1>y2) anchor = "end"
 			if (x1<x2 && y1>y2) anchor = "end"
 			if (x1>x2 && y1<y2) anchor = "start"
-
+			
 			var fromS =  _.reduce(_.flatten(deltas[d].fromSymbol),function(a,b){return a+" "+b} )
 			var toS =  _.reduce(_.flatten(deltas[d].toSymbol),function(a,b){return a+" "+b} )
 			var move =  _.reduce(_.flatten(deltas[d].move),function(a,b){return a+" "+b} )
@@ -103,9 +103,15 @@ var graph = {
 
 
 Raphael.fn.arrow = function(x1, y1, x2, y2, size, skew) {
-	//lohka bi rotate arrow tocno zracunu kaksn je kot sam se mi ne da
+	if (x1 == x2 && y1 == y2) y2++
 	var len = Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
 	var r = len*Math.max(skew,0.6);
+	var sh = 0
+	if (r < 25){
+		sh = 1
+		r = 25
+	}
+
 	var rotateArrow = 90 - Raphael.deg(Math.acos(len/2/r));
 	var angle = Raphael.angle(x1, y1, x2, y2);
 	var a45   = Raphael.rad(angle-45+rotateArrow);
@@ -114,8 +120,9 @@ Raphael.fn.arrow = function(x1, y1, x2, y2, size, skew) {
 	var y2a = y2 + Math.sin(a45) * size;
 	var x2b = x2 + Math.cos(a45m) * size;
 	var y2b = y2 + Math.sin(a45m) * size;
+
 	return this.path(
-			"M"+x1+" "+y1+"A"+" "+r+" "+r+" -80 0 1 " +x2+" "+y2+
+			"M"+x1+" "+y1+"A"+" "+r+" "+r+" 0 "+sh+" 1 " +x2+" "+y2+
 			"M"+x2+" "+y2+"L"+x2a+" "+y2a+
 			"M"+x2+" "+y2+"L"+x2b+" "+y2b
 			);
