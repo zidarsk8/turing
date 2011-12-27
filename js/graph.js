@@ -34,18 +34,28 @@ var graph = {
 			var r = this.rotatePoints(tx,ty,x2,y2, Raphael.rad(Raphael.angle(x2,y2,x1,y1)+30))
 			tx = r.x
 			ty = r.y
-			
+			var anchor = "middle"
+			if (x1<x2 && y1<y2) anchor = "start"
+			if (x1>x2 && y1>y2) anchor = "end"
+			if (x1<x2 && y1>y2) anchor = "end"
+			if (x1>x2 && y1<y2) anchor = "start"
+
 			var fromS =  _.reduce(_.flatten(deltas[d].fromSymbol),function(a,b){return a+" "+b} )
 			var toS =  _.reduce(_.flatten(deltas[d].toSymbol),function(a,b){return a+" "+b} )
 			var move =  _.reduce(_.flatten(deltas[d].move),function(a,b){return a+" "+b} )
+			
 			this.graph.text(tx,ty,fromS+" -> "+toS+","+move).
-					attr({"font":"16px serif", "text-anchor":"middle","fill":"#001111"});
+					attr({"font":"16px serif", "text-anchor":anchor,"fill":"#001111"});
 		}
 		for (var i in states){
-			this.graph.circle(states[i].x, states[i].y, 20).attr({"stroke-width":"2px","fill":"#fff"})
-			this.graph.text(states[i].x,states[i].y,i).attr({"font":"16px serif", "text-anchor":"middle","fill":"#001111"});
+			var context = {x:0,y:0,q:i,graph:this}
+			this.graph.circle(states[i].x, states[i].y, 20).
+				attr({"stroke-width":"2px","fill":"#fff"}).
+				drag(this.stateMove,this.startMove,this.endMove,context,context,context)
+			this.graph.text(states[i].x,states[i].y,i).
+				attr({"font":"16px serif", "text-anchor":"middle","fill":"#001111"}).
+				drag(this.stateMove,this.startMove,this.endMove,context,context,context)
 		}
-		
 	},
 	
 	rotatePoints : function(px,py,ox,oy,theta){
@@ -73,6 +83,20 @@ var graph = {
 		dx *= length - d;
 		dy *= length - d;
 		return [(x1 + dx), (y1 + dy)];
+	},
+	
+	startMove : function(x,y){
+		this.x = turing.graphStates[this.q].x
+		this.y = turing.graphStates[this.q].y
+	},
+	stateMove : function(dx,dy,x,y){ 
+		this.dx = x
+		this.dy = y
+		turing.graphStates[this.q].x = this.x + dx
+		turing.graphStates[this.q].y = this.y + dy
+		this.graph.update()
+	},
+	endMove : function(e){
 	}
 
 }
