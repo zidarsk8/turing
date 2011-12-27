@@ -23,7 +23,7 @@ var graph = {
 			//	console.log("naredi krogec")
 			//}
 
-			this.graph.arrow(states[sin].x, states[sin].y, x2s, y2s, 10).attr({"stroke-width":"2px"})
+			this.graph.arrow(states[sin].x, states[sin].y, x2s, y2s, 10, 0.9).attr({"stroke-width":"2px"})
 			
 			
 			var len = this.getLength(x1,y1,x2,y2)
@@ -78,8 +78,11 @@ var graph = {
 }
 
 
-Raphael.fn.arrow = function(x1, y1, x2, y2, size) {
-	var rotateArrow = 37;
+Raphael.fn.arrow = function(x1, y1, x2, y2, size, skew) {
+	//lohka bi rotate arrow tocno zracunu kaksn je kot sam se mi ne da
+	var len = Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+	var r = len*Math.max(skew,0.6);
+	var rotateArrow = 90 - Raphael.deg(Math.acos(len/2/r));
 	var angle = Raphael.angle(x1, y1, x2, y2);
 	var a45   = Raphael.rad(angle-45+rotateArrow);
 	var a45m  = Raphael.rad(angle+45+rotateArrow);
@@ -87,7 +90,6 @@ Raphael.fn.arrow = function(x1, y1, x2, y2, size) {
 	var y2a = y2 + Math.sin(a45) * size;
 	var x2b = x2 + Math.cos(a45m) * size;
 	var y2b = y2 + Math.sin(a45m) * size;
-	var r = Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2))*0.8;
 	return this.path(
 			"M"+x1+" "+y1+"A"+" "+r+" "+r+" -80 0 1 " +x2+" "+y2+
 			"M"+x2+" "+y2+"L"+x2a+" "+y2a+
