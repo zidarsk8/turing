@@ -99,24 +99,25 @@ turing = {
 		ss.push([])
 		for (var i in ss[ssl-1]){
 			for (var d in ss[ssl-1][i].possibleDeltas){
-				// does not deep copy
-				(function(cc,d){
-					for (var ti=0; ti < this.numTapes; ti++){
-						for (var tj=0; tj < this.numTracks; tj++){
-							cc.tapes[cc.pos[0][i]][ti][tj][cc.pos[1][ti]] = this.delta[d].toSymbol[ti][tj]
-						}
+				var dd = ss[ssl-1][i].possibleDeltas[d]
+				var cc = {} 
+				$.extend(true,cc,ss[ssl-1][i])
+				for (var ti=0; ti < this.numTapes; ti++){
+					for (var tj=0; tj < this.numTracks; tj++){
+						cc.tapes[cc.pos[0][i]][ti][tj][cc.pos[1][ti]] = this.delta[dd].toSymbol[ti][tj]
 					}
-					cc.pos = this.getNewPosition(cc.pos,this.delta[d].move)
-					this.addRemoveBlanks(cc)
-					this.systemStates[ssl].push(cc)
-				})(_.clone(ss[ssl-1][i]),this,d)
+				}
+				cc.pos = this.getNewPosition(cc.pos,this.delta[dd].move)
+				this.addRemoveBlanks(cc)
+				cc.state = _.clone(this.delta[dd].toState)
+				cc.possibleDeltas = this.getDeltasFromState(cc)
+				ss[ssl].push(cc)
 			}
 		}
 	},
 
-	getNewPosition : function(pos,move){
-		var np = _.clone(pos)
-		console.log("newpos",np,move)
+	getNewPosition : function(np,move){
+		//console.log("newpos",np,move)
 		for (var m in move){
 			switch (move[m]){
 				case "U": np[0][m]++ ; break
