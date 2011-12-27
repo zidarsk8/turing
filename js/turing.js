@@ -1,4 +1,4 @@
-turing = {
+var turing = {
 	paddingSize: 2,
 	numTapes : 1,
 	numTracks : 1,
@@ -13,7 +13,8 @@ turing = {
 		move: []
 	}],
 	systemStates : [],
-
+	graphStates: {},
+	
 	addDelta : function(d){
 		for (var i in this.delta) //check if identical delta exists
 			if (_.isEqual(d,i))
@@ -22,7 +23,7 @@ turing = {
 	},
 	
 	
-	 // deltaString = ['qx a b c d -> qy d e B c R S ',...] , numTapes = 2 numTracks = 2
+	// deltaString = ['qx a b c d -> qy d e B c R S ',...] , numTapes = 2 numTracks = 2
 	parseDeltaString : function(ds){
 		var check = this.checkDeltaSyntax(ds)
 		if (check.ok){
@@ -45,6 +46,7 @@ turing = {
 				}
 				this.addDelta(d)
 			}
+			this.graphStatesFromDelta()
 		}
 		return check
 	},
@@ -193,6 +195,36 @@ turing = {
 				}
 				//TODO: na s.tapes[d][i][j] je treba odstranit odvecne blank znake
 				// tisto kar je vec kot padding da imamo pol B B B b e s e d a B B B 
+			}
+		}
+	},
+
+	graphStatesFromDelta : function(){
+		var used = []
+		var notUsed = _.keys(this.graphStates)
+		console.log("all",notUsed)
+		for (d in this.delta){
+			used.push(this.delta[d].fromState)
+			used.push(this.delta[d].toState)
+			notUsed = _.without(notUsed, this.delta[d].fromState)
+			notUsed = _.without(notUsed, this.delta[d].toState)
+		}
+		console.log("used",used)
+		console.log("remove",notUsed)
+		for (var i in notUsed){
+			delete(this.graphStates[notUsed[i]])
+		}
+		for (var d in used){
+			if (typeof this.graphStates[used[d]]=="undefined"){
+				var n = _.keys(this.graphStates).length
+				this.graphStates[used[d]] = {
+					x : 50 + (n%4) * 100,
+					y : 50 + (n/4) * 100, //I could floor this :P
+					init : used[d] == this.initState,
+					fin : this.finalStates.indexOf(used[d]) != -1,
+					color: "#aa0011",
+					breakPoint: false
+				}
 			}
 		}
 	}
