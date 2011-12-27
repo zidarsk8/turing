@@ -1,4 +1,5 @@
 var turing = {
+	callbacks : [],
 	paddingSize: 2,
 	numTapes : 1,
 	numTracks : 1,
@@ -46,7 +47,7 @@ var turing = {
 				}
 				this.addDelta(d)
 			}
-			this.graphStatesFromDelta()
+			this.onUpdate()
 		}
 		return check
 	},
@@ -202,15 +203,15 @@ var turing = {
 	graphStatesFromDelta : function(){
 		var used = []
 		var notUsed = _.keys(this.graphStates)
-		console.log("all",notUsed)
+		//console.log("all",notUsed)
 		for (d in this.delta){
 			used.push(this.delta[d].fromState)
 			used.push(this.delta[d].toState)
 			notUsed = _.without(notUsed, this.delta[d].fromState)
 			notUsed = _.without(notUsed, this.delta[d].toState)
 		}
-		console.log("used",used)
-		console.log("remove",notUsed)
+		//console.log("used",used)
+		//console.log("remove",notUsed)
 		for (var i in notUsed){
 			delete(this.graphStates[notUsed[i]])
 		}
@@ -226,6 +227,19 @@ var turing = {
 					breakPoint: false
 				}
 			}
+		}
+	},
+	
+	addUpdateCallback : function(f){
+		if (typeof f == "function"){
+			this.callbacks.push(f)
+		}
+	},
+	
+	onUpdate : function(){
+		this.graphStatesFromDelta()
+		for (var i in this.callbacks){
+			this.callbacks[i]()
 		}
 	}
 }

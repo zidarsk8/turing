@@ -1,5 +1,3 @@
-var  graph; // probably doing it wrong...
-
 $(document).ready(function() {
 	
 	$(".slider").slider({
@@ -26,9 +24,10 @@ $(document).ready(function() {
 	$("#turingCodeEditor").bind('paste', function(e){ 
 		console.log(e) 
 	})
-
 	
-	
+	turing.addUpdateCallback(function(){
+		graph.update()
+	})
 	
 	
 	
