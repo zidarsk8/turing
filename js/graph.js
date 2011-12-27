@@ -3,15 +3,33 @@ var graph = {
 	update : function() {
 		this.graph.clear()
 		var states = turing.graphStates
+		var deltas = turing.delta
 		if (_.keys(states).length == 0) return
 		
 		console.log("should be drawing graph")
+		
+		for (var d in deltas){
+			var sin = deltas[d].fromState
+			var sout = deltas[d].toState
 
+			var xy = this.shorten_line(states[sin].x,states[sin].y,states[sout].x,states[sout].y, 22)
+			var x=xy[0], y=Math.floor(xy[1])
+
+			this.graph.arrow(states[sin].x, states[sin].y, x, y, 10).attr({"stroke-width":"2px"})
+			
+			x = (x+states[sin].x)/2
+			y = (y+states[sin].y)/2
+			
+			var fromS =  _.reduce(_.flatten(deltas[d].fromSymbol),function(a,b){return a+" "+b} )
+			var toS =  _.reduce(_.flatten(deltas[d].toSymbol),function(a,b){return a+" "+b} )
+			var move =  _.reduce(_.flatten(deltas[d].move),function(a,b){return a+" "+b} )
+			this.graph.text(x,y-15,fromS+" -> "+toS+","+move).
+					attr({"font":"16px serif", "text-anchor":"middle","fill":"#001111"});
+		}
 		for (var i in states){
 			this.graph.circle(states[i].x, states[i].y, 20).attr({"stroke-width":"2px","fill":"#fff"})
 			this.graph.text(states[i].x,states[i].y,i).attr({"font":"16px serif", "text-anchor":"middle","fill":"#001111"});
 		}
-
 		return
 
 		this.graph.arrow(states[0].x-45, states[0].y, states[0].x-20, states[0].y, 10).attr({"stroke-width":"2px"})

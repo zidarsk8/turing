@@ -201,6 +201,8 @@ var turing = {
 	},
 
 	graphStatesFromDelta : function(){
+		var spread = 170
+		var inRow = 3
 		var used = []
 		var notUsed = _.keys(this.graphStates)
 		//console.log("all",notUsed)
@@ -219,8 +221,8 @@ var turing = {
 			if (typeof this.graphStates[used[d]]=="undefined"){
 				var n = _.keys(this.graphStates).length
 				this.graphStates[used[d]] = {
-					x : 50 + (n%4) * 100,
-					y : 50 + (n/4) * 100, //I could floor this :P
+					x : 50 + (n%inRow) * spread,
+					y : 50 + (n/inRow) * spread, //I could floor this :P
 					init : used[d] == this.initState,
 					fin : this.finalStates.indexOf(used[d]) != -1,
 					color: "#aa0011",
