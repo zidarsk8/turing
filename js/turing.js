@@ -58,10 +58,9 @@ turing = {
 			pos: tp,
 			possibleDeltas: []
 		}
-		console.log(s)
+		//console.log(s)
 		this.addRemoveBlanks(s)
-		console.log(s)
-
+		//console.log(s)
 		s.possibleDeltas = this.getDeltasFromState(s)
 		this.systemStates = [[s]]
 	},
@@ -73,9 +72,11 @@ turing = {
 		var possible = []
 		for (var d in this.delta){
 			if (s.state == this.delta[d].fromState){
+				//console.log("preverjanje state:",s.state, this.delta[d].fromState)
 				var ok = true;
-				for (var i=0; i<this.numTracks; i++){
+				for (var i=0; i<this.numTapes; i++){
 					for (var j=0; j<this.numTracks; j++){
+						//console.log("preverjanje sym:",s.tapes[s.pos[0][i]][i][j][s.pos[1][i]] , this.delta[d].fromSymbol[i][j])
 						if (s.tapes[s.pos[0][i]][i][j][s.pos[1][i]] != this.delta[d].fromSymbol[i][j]){
 							ok = false
 						}
@@ -101,6 +102,7 @@ turing = {
 			for (var d in ss[ssl-1][i].possibleDeltas){
 				var dd = ss[ssl-1][i].possibleDeltas[d]
 				var cc = {} 
+				//console.log("using delta",dd,this.delta[dd])
 				$.extend(true,cc,ss[ssl-1][i])
 				for (var ti=0; ti < this.numTapes; ti++){
 					for (var tj=0; tj < this.numTracks; tj++){
@@ -124,7 +126,6 @@ turing = {
 				case "D": np[0][m]-- ; break
 				case "R": np[1][m]++ ; break
 				case "L": np[1][m]-- ; break
-				default : statement;
 			}
 		}
 		return np
