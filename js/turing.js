@@ -51,15 +51,17 @@ turing = {
 	
 	setInitialState : function(trackWord){
 		var tp = []
-		for (var i=0; i<this.numTapes; i++) { tp.push(0)}
+		for (var i=0; i<this.numTapes; i++) { tp.push([0,0])}
 		var s = {
 			state: this.initState, 
 			tapes: [[[trackWord.split("")]]], 
-			dimPos: _.clone(tp),
-			tapePos: _.clone(tp),
+			pos: tp,
 			possibleDeltas: []
 		}
-		this.addRemoveBlanks(s);
+		console.log(s)
+		this.addRemoveBlanks(s)
+		console.log(s)
+
 		s.possibleDeltas = this.getDeltasFromState(s)
 		this.systemStates = [[s]]
 	},
@@ -74,7 +76,7 @@ turing = {
 				var ok = true;
 				for (var i=0; i<this.numTracks; i++){
 					for (var j=0; j<this.numTracks; j++){
-						if (s.tapes[s.dimPos[i]][i][j][s.tapePos[i]] != this.delta[d].fromSymbol[i][j]){
+						if (s.tapes[s.pos[0][i]][i][j][s.pos[1][i]] != this.delta[d].fromSymbol[i][j]){
 							ok = false
 						}
 					}
@@ -97,17 +99,34 @@ turing = {
 		ss.push([])
 		for (var i in ss[ssl-1]){
 			for (var d in ss[ssl-1][i].possibleDeltas){
-				var cc = _.clone(ss[ssl-1][i])
-				for (var ti=0; ti < this.numTapes; ti++){
-					for (var tj=0; tj < this.numTracks; tj++){
-						cc[cc.dimPos[i]][ti][tj][cc.trackPos[ti]] = this.delta[d].toSymbol[ti][tj]
+				// does not deep copy
+				(function(cc,d){
+					for (var ti=0; ti < this.numTapes; ti++){
+						for (var tj=0; tj < this.numTracks; tj++){
+							cc.tapes[cc.pos[0][i]][ti][tj][cc.pos[1][ti]] = this.delta[d].toSymbol[ti][tj]
+						}
 					}
-					cc.trackPos[ti] = this.getNewPosition(cc.trackPos[ti],this.delta[d].move[tj])
-				}
-
-				ss[ssl].push(cc)
+					cc.pos = this.getNewPosition(cc.pos,this.delta[d].move)
+					this.addRemoveBlanks(cc)
+					this.systemStates[ssl].push(cc)
+				})(_.clone(ss[ssl-1][i]),this,d)
 			}
 		}
+	},
+
+	getNewPosition : function(pos,move){
+		var np = _.clone(pos)
+		console.log("newpos",np,move)
+		for (var m in move){
+			switch (move[m]){
+				case "U": np[0][m]++ ; break
+				case "D": np[0][m]-- ; break
+				case "R": np[1][m]++ ; break
+				case "L": np[1][m]-- ; break
+				default : statement;
+			}
+		}
+		return np
 	},
 	
 	checkDeltaSyntax : function(ds){
@@ -157,18 +176,18 @@ turing = {
 					if (typeof s.tapes[d][i][j] == "undefined" ){
 						s.tapes[d][i].push([])
 					}
-					while (s.tapes[d][i][j].length < s.tapePos[i]+this.paddingSize || 
+					while (s.tapes[d][i][j].length < s.pos[1][i]+this.paddingSize || 
 							s.tapes[d][i][j][s.tapes[d][i][j].length-this.paddingSize] != "B"){
 						s.tapes[d][i][j].push("B")
 					}
 				}
 				
 				//dodamo padding traku uspredaj
-				while (s.tapePos[i] < this.paddingSize){
+				while (s.pos[1][i] < this.paddingSize){
 					for (var j=0 ; j<this.numTracks ; j++){
 						s.tapes[d][i][j].unshift("B")
 					}
-					s.tapePos[i]++
+					s.pos[1][i]++
 				}
 				//TODO: na s.tapes[d][i][j] je treba odstranit odvecne blank znake
 				// tisto kar je vec kot padding da imamo pol B B B b e s e d a B B B 

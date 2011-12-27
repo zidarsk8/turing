@@ -8,4 +8,8 @@ $(document).ready(function(){
 		turing.setInitialState($("#tmInputWord").val())
 	})
 
+	$("#next_b").click(function(){
+		turing.makeNextMove()
+	})
+
 })
