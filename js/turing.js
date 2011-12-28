@@ -72,7 +72,7 @@ var turing = {
 
 
 	getDeltasFromState: function(s){
-		//TODO: return all possible next delta functions
+		console.log(s)
 		var possible = []
 		for (var d in this.delta){
 			if (s.state == this.delta[d].fromState){
@@ -80,8 +80,8 @@ var turing = {
 				var ok = true;
 				for (var i=0; i<this.numTapes; i++){
 					for (var j=0; j<this.numTracks; j++){
-						//console.log("preverjanje sym:",s.tapes[s.pos[0][i]][i][j][s.pos[1][i]] , this.delta[d].fromSymbol[i][j])
-						if (s.tapes[s.pos[0][i]][i][j][s.pos[1][i]] != this.delta[d].fromSymbol[i][j]){
+						//console.log("preverjanje sym:",s.tapes[s.pos[i][0]][i][j][s.pos[i][1]] , this.delta[d].fromSymbol[i][j])
+						if (s.tapes[s.pos[i][0]][i][j][s.pos[i][1]] != this.delta[d].fromSymbol[i][j]){
 							ok = false
 						}
 					}
@@ -117,7 +117,7 @@ var turing = {
 					$.extend(true,cc,ss[ssl-1][i])
 					for (var ti=0; ti < this.numTapes; ti++){
 						for (var tj=0; tj < this.numTracks; tj++){
-							cc.tapes[cc.pos[0][i]][ti][tj][cc.pos[1][ti]] = this.delta[dd].toSymbol[ti][tj]
+							cc.tapes[cc.pos[i][0]][ti][tj][cc.pos[ti][1]] = this.delta[dd].toSymbol[ti][tj]
 						}
 					}
 					cc.pos = this.getNewPosition(cc.pos,this.delta[dd].move)
@@ -132,17 +132,17 @@ var turing = {
 		this.onUpdate()
 	},
 
-	getNewPosition : function(np,move){
-		//console.log("newpos",np,move)
+	getNewPosition : function(pos,move){
+		//console.log("newpos",pos,move)
 		for (var m in move){
 			switch (move[m]){
-				case "U": np[0][m]++ ; break
-				case "D": np[0][m]-- ; break
-				case "R": np[1][m]++ ; break
-				case "L": np[1][m]-- ; break
+				case "U": pos[m][0]++ ; break
+				case "D": pos[m][0]-- ; break
+				case "R": pos[m][1]++ ; break
+				case "L": pos[m][1]-- ; break
 			}
 		}
-		return np
+		return pos
 	},
 	
 	checkDeltaSyntax : function(ds){
@@ -163,9 +163,8 @@ var turing = {
 
 		arr = arr.slice(2)
 		for (var i in arr){
-			var delta = arr[i].split("//")[0].trim()
-			if (delta.trim().length > 10 ){		
-				var s = _.map(delta.replace(/<.*?>/g,"").split("-&gt;"),function(s){return s.trim().split(" ")})
+			if (arr[i].trim().length > 10 ){		
+				var s = _.map(arr[i].replace(/<.*?>/g,"").split("-&gt;"),function(s){return s.trim().split(" ")})
 				cok = s.length == 2 && s[0].length == 1+this.numTapes*this.numTracks && 
 				s[1].length == 1+this.numTapes*this.numTracks + this.numTapes &&
 				_.reduce(_.map(s[0].slice(1), function(n){return n.length ==1}),function(a,b){return a && b}) && 
@@ -173,7 +172,7 @@ var turing = {
 				_.reduce(_.map(s[1].slice(s[1].length-this.numTapes), function(n){return moves.indexOf(n) != -1 }),function(a,b){return a && b}) 
 				check.ok &= cok
 				check.okArr.push(cok)
-				check.dsa.push(delta.replace(/<.*?>/g,""))
+				check.dsa.push(arr[i].replace(/<.*?>/g,""))
 				//console.log(check)
 			}
 		}
@@ -193,18 +192,18 @@ var turing = {
 					if (typeof s.tapes[d][i][j] == "undefined" ){
 						s.tapes[d][i].push([])
 					}
-					while (s.tapes[d][i][j].length < s.pos[1][i]+this.paddingSize || 
+					while (s.tapes[d][i][j].length < s.pos[i][1]+this.paddingSize || 
 							s.tapes[d][i][j][s.tapes[d][i][j].length-this.paddingSize] != "B"){
 						s.tapes[d][i][j].push("B")
 					}
 				}
 				
 				//dodamo padding traku uspredaj
-				while (s.pos[1][i] < this.paddingSize){
+				while (s.pos[i][1] < this.paddingSize){
 					for (var j=0 ; j<this.numTracks ; j++){
 						s.tapes[d][i][j].unshift("B")
 					}
-					s.pos[1][i]++
+					s.pos[i][1]++
 				}
 				//TODO: na s.tapes[d][i][j] je treba odstranit odvecne blank znake
 				// tisto kar je vec kot padding da imamo pol B B B b e s e d a B B B 
