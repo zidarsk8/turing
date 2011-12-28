@@ -8,14 +8,14 @@ var turing = {
 	finalStates : [],
 	initState : '',
 	delta : [{
-		fromState: '',
-		fromSymbol: [ /*tape*/ [ /*track*/ ]],
-		toState: '',
-		toSymbol: [ /*tape*/ [ /*track*/ ]],
-		move: []
+		fromState : '',
+		fromSymbol : [ /*tape*/ [ /*track*/ ]],
+		toState : '',
+		toSymbol : [ /*tape*/ [ /*track*/ ]],
+		move : []
 	}],
 	systemStates : [],
-	graphStates: {},
+	graphStates : {},
 	
 	addDelta : function(d){
 		for (var i in this.delta) //check if identical delta exists
@@ -24,11 +24,17 @@ var turing = {
 		this.delta.push(d) //add delta function
 	},
 	
+	reset : function(){
+		//TODO: reset all local var to default values
+	},
 	
 	// deltaString = ['qx a b c d -> qy d e B c R S ',...] , numTapes = 2 numTracks = 2
 	parseDeltaString : function(ds){
 		var check = this.checkDeltaSyntax(ds)
 		if (check.ok){
+			this.showLevel = {level: -1, state: -1 }
+			this.systemStates = [],
+			this.graphStates = {},
 			this.delta = []
 			this.initState = check.initState
 			this.finalStates = check.finalStates
@@ -72,7 +78,6 @@ var turing = {
 
 
 	getDeltasFromState: function(s){
-		console.log(s)
 		var possible = []
 		for (var d in this.delta){
 			if (s.state == this.delta[d].fromState){

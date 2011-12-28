@@ -46,9 +46,13 @@ var graph = {
 		//TODO: check if cur state and ending state in delta are both visible and correct so that in qx -> qy .. both are seen
 		//could use a nice animation 2
 		if (track && typeof turing.systemStates[turing.showLevel.level] != "undefined"){
-			this.panX = -turing.graphStates[turing.systemStates[turing.showLevel.level][turing.showLevel.state].state].x + this.trackStatePosX
-			this.panY = -turing.graphStates[turing.systemStates[turing.showLevel.level][turing.showLevel.state].state].y + this.trackStatePosY
+			this.moveToState(turing.graphStates[turing.systemStates[turing.showLevel.level][turing.showLevel.state].state])
 		}
+	},
+
+	moveToState : function(state){
+		this.panX = this.trackStatePosX - state.x
+		this.panY = this.trackStatePosY - state.y
 	},
 	
 	drawStates : function(states,color){
