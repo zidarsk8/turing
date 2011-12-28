@@ -22,7 +22,7 @@ $(document).ready(function() {
 	})
 	
 	$("#turingCodeEditor").bind('paste', function(e){ 
-		console.log(e) 
+		//console.log(e) 
 	})
 	
 	turing.addUpdateCallback(function(){

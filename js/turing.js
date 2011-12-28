@@ -163,8 +163,9 @@ var turing = {
 
 		arr = arr.slice(2)
 		for (var i in arr){
-			if (arr[i].trim().length > 10 ){		
-				var s = _.map(arr[i].replace(/<.*?>/g,"").split("-&gt;"),function(s){return s.trim().split(" ")})
+			var delta = arr[i].split("//")[0].trim()
+			if (delta.trim().length > 10 ){		
+				var s = _.map(delta.replace(/<.*?>/g,"").split("-&gt;"),function(s){return s.trim().split(" ")})
 				cok = s.length == 2 && s[0].length == 1+this.numTapes*this.numTracks && 
 				s[1].length == 1+this.numTapes*this.numTracks + this.numTapes &&
 				_.reduce(_.map(s[0].slice(1), function(n){return n.length ==1}),function(a,b){return a && b}) && 
@@ -172,7 +173,7 @@ var turing = {
 				_.reduce(_.map(s[1].slice(s[1].length-this.numTapes), function(n){return moves.indexOf(n) != -1 }),function(a,b){return a && b}) 
 				check.ok &= cok
 				check.okArr.push(cok)
-				check.dsa.push(arr[i].replace(/<.*?>/g,""))
+				check.dsa.push(delta.replace(/<.*?>/g,""))
 				//console.log(check)
 			}
 		}
