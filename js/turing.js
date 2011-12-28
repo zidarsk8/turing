@@ -1,4 +1,5 @@
 var turing = {
+	showLevel : {level: -1, state: -1},
 	callbacks : [],
 	paddingSize: 2,
 	numTapes : 1,
@@ -61,11 +62,11 @@ var turing = {
 			pos: tp,
 			possibleDeltas: []
 		}
-		//console.log(s)
 		this.addRemoveBlanks(s)
-		//console.log(s)
 		s.possibleDeltas = this.getDeltasFromState(s)
 		this.systemStates = [[s]]
+		this.showLevel = {level:0, state: "all"}
+		this.onUpdate()
 	},
 	
 
@@ -97,28 +98,33 @@ var turing = {
 		//TODO: return all possible next delta functions
 	},
 	
-	makeNextMove : function(){
+	makeNextMove : function(){		
 		var ss = this.systemStates
 		var ssl = ss.length
-		ss.push([])
-		for (var i in ss[ssl-1]){
-			for (var d in ss[ssl-1][i].possibleDeltas){
-				var dd = ss[ssl-1][i].possibleDeltas[d]
-				var cc = {} 
-				//console.log("using delta",dd,this.delta[dd])
-				$.extend(true,cc,ss[ssl-1][i])
-				for (var ti=0; ti < this.numTapes; ti++){
-					for (var tj=0; tj < this.numTracks; tj++){
-						cc.tapes[cc.pos[0][i]][ti][tj][cc.pos[1][ti]] = this.delta[dd].toSymbol[ti][tj]
+		
+		if (this.showLevel.level + 2 > ssl){
+			ss.push([])
+			for (var i in ss[ssl-1]){
+				for (var d in ss[ssl-1][i].possibleDeltas){
+					var dd = ss[ssl-1][i].possibleDeltas[d]
+					var cc = {} 
+					//console.log("using delta",dd,this.delta[dd])
+					$.extend(true,cc,ss[ssl-1][i])
+					for (var ti=0; ti < this.numTapes; ti++){
+						for (var tj=0; tj < this.numTracks; tj++){
+							cc.tapes[cc.pos[0][i]][ti][tj][cc.pos[1][ti]] = this.delta[dd].toSymbol[ti][tj]
+						}
 					}
+					cc.pos = this.getNewPosition(cc.pos,this.delta[dd].move)
+					this.addRemoveBlanks(cc)
+					cc.state = _.clone(this.delta[dd].toState)
+					cc.possibleDeltas = this.getDeltasFromState(cc)
+					ss[ssl].push(cc)
 				}
-				cc.pos = this.getNewPosition(cc.pos,this.delta[dd].move)
-				this.addRemoveBlanks(cc)
-				cc.state = _.clone(this.delta[dd].toState)
-				cc.possibleDeltas = this.getDeltasFromState(cc)
-				ss[ssl].push(cc)
 			}
 		}
+		this.showLevel.level++
+		this.onUpdate()
 	},
 
 	getNewPosition : function(np,move){
