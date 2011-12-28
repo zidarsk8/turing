@@ -1,9 +1,15 @@
 var graph = {
+	panX : 100,
+	panY : 100,
+	sizeX : 750,
+	sizeY : 600,
 	graph : new Raphael(document.getElementById('graph-canvas'), "100%", "650px"),
 	update : function() {
 		if (_.keys(turing.graphStates).length == 0) return
 		this.graph.clear()
-		
+		this.graph.rect(0,0,this.sizeX,this.sizeY,10).
+				attr({"fill":"#ddddff"}).
+				drag(this.dragPan,this.startPan,this.endPan,this,this,this)
 		this.drawDeltas(turing.delta)
 		this.drawStates(turing.graphStates)
 		
@@ -35,13 +41,15 @@ var graph = {
 	drawStates : function(states,color){
 		if (typeof color == "undefined") color = "#fff"
 		for (var i in states){
-			var context = {x:0,y:0,q:i,graph:this}
-			this.graph.circle(states[i].x, states[i].y, 20).
-				attr({"stroke-width":"2px","fill":color}).
-				drag(this.stateMove,this.startMove,this.endMove,context,context,context)
-			this.graph.text(states[i].x,states[i].y,i).
-				attr({"font":"16px serif", "text-anchor":"middle","fill":"#001111"}).
-				drag(this.stateMove,this.startMove,this.endMove,context,context,context)
+			if (states[i].x+this.panX>0 && states[i].x+this.panX<this.sizeX && states[i].y+this.panY>0 && states[i].y+this.panY < this.sizeY){
+				var context = {x:0,y:0,q:i,graph:this}
+				this.graph.circle(states[i].x+this.panX, states[i].y+this.panY, 20).
+					attr({"stroke-width":"2px","fill":color}).
+					drag(this.stateMove,this.startMove,this.endMove,context,context,context)
+				this.graph.text(states[i].x+this.panX, states[i].y+this.panY ,i).
+					attr({"font":"16px serif", "text-anchor":"middle","fill":"#001111"}).
+					drag(this.stateMove,this.startMove,this.endMove,context,context,context)
+			}
 		}
 	},
 	
@@ -52,23 +60,28 @@ var graph = {
 			var y1 = turing.graphStates[deltas[d].fromState].y
 			var x2 = turing.graphStates[deltas[d].toState].x
 			var y2 = turing.graphStates[deltas[d].toState].y
-			var xyShort = this.shorten_line(x1,y1,x2,y2, 22)
-			var len = this.getLength(x1,y1,x2,y2)
-			var t = this.rotatePoints( x2 - len/2,y2 ,x2,y2, Raphael.rad(Raphael.angle(x2,y2,x1,y1)+25))
-			if (x1 == x2 && y1==y2) t.x+=55
-			
-			var anchor = "start"
-			if ( (x1<x2 && y1<y2) || (x1>x2 && y1<y2) ) anchor = "start"
-			if ( (x1>x2 && y1>y2) || (x1<x2 && y1>y2) ) anchor = "end"
-			
-			var fromS =  _.reduce(_.flatten(deltas[d].fromSymbol),function(a,b){return a+" "+b} )
-			var toS =  _.reduce(_.flatten(deltas[d].toSymbol),function(a,b){return a+" "+b} )
-			var move =  _.reduce(_.flatten(deltas[d].move),function(a,b){return a+" "+b} )
-			
-			this.graph.arrow(x1, y1, xyShort[0], xyShort[1], 10, 0.9).attr({"stroke-width":"2px", "stroke":color})
-			this.graph.text(t.x,t.y,fromS+" -> "+toS+","+move).
-					attr({"font":"16px serif", "text-anchor":anchor,"fill":"#001111"});
-					//TODO: make pretty colors!attr({"font":"16px serif", "text-anchor":anchor,"stroke":color,"stroke-width":"1px","fill":"#001111"});
+			if (	(x1+this.panX>0 && x1+this.panX<this.sizeX && y1+this.panY>0 && y1+this.panY < this.sizeY)|| 
+					(x2+this.panX>0 && x2+this.panX<this.sizeX && y2+this.panY>0 && y2+this.panY < this.sizeY)
+				){
+				var xyShort = this.shorten_line(x1,y1,x2,y2, 22)
+				var len = this.getLength(x1,y1,x2,y2)
+				var t = this.rotatePoints( x2 - len/2,y2 ,x2,y2, Raphael.rad(Raphael.angle(x2,y2,x1,y1)+25))
+				if (x1 == x2 && y1==y2) t.x+=55
+				
+				var anchor = "start"
+				if ( (x1<x2 && y1<y2) || (x1>x2 && y1<y2) ) anchor = "start"
+				if ( (x1>x2 && y1>y2) || (x1<x2 && y1>y2) ) anchor = "end"
+				
+				var fromS =  _.reduce(_.flatten(deltas[d].fromSymbol),function(a,b){return a+" "+b} )
+				var toS =  _.reduce(_.flatten(deltas[d].toSymbol),function(a,b){return a+" "+b} )
+				var move =  _.reduce(_.flatten(deltas[d].move),function(a,b){return a+" "+b} )
+				
+				this.graph.arrow(x1+this.panX, y1+this.panY, xyShort[0]+this.panX, xyShort[1]+this.panY, 10, 0.9).
+						attr({"stroke-width":"2px", "stroke":color})
+				this.graph.text(t.x+this.panX ,t.y+this.panY ,fromS+" -> "+toS+","+move).
+						attr({"font":"16px serif", "text-anchor":anchor,"fill":"#001111"});
+				//TODO: make pretty colors!attr({"font":"16px serif", "text-anchor":anchor,"stroke":color,"stroke-width":"1px","fill":"#001111"});
+			}
 		}
 	},
 
@@ -104,15 +117,22 @@ var graph = {
 		this.y = turing.graphStates[this.q].y
 	},
 	stateMove : function(dx,dy,x,y){ 
-		this.dx = x
-		this.dy = y
 		turing.graphStates[this.q].x = this.x + dx
 		turing.graphStates[this.q].y = this.y + dy
 		this.graph.update()
 	},
-	endMove : function(e){
-	}
+	endMove : function(e){},
 
+	startPan : function(x,y){
+		this.origPosX = this.panX
+		this.origPosY = this.panY
+	},
+	dragPan : function(dx,dy,x,y){
+		this.panX = this.origPosX + dx
+		this.panY = this.origPosY + dy
+		this.update()
+	},
+	endPan : function(e){}
 }
 
 
