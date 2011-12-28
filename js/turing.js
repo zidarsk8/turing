@@ -98,6 +98,11 @@ var turing = {
 		//TODO: return all possible next delta functions
 	},
 	
+	undoMove : function(){
+		this.showLevel.level--
+		this.onUpdate()
+	},
+
 	makeNextMove : function(){		
 		var ss = this.systemStates
 		var ssl = ss.length
