@@ -3,6 +3,9 @@ var graph = {
 	panY : 100,
 	sizeX : 750,
 	sizeY : 600,
+	trackStatePosX : 300,
+	trackStatePosY : 100,
+	track : true,
 	graph : new Raphael(document.getElementById('graph-canvas'), "100%", "650px"),
 	update : function() {
 		if (_.keys(turing.graphStates).length == 0) return
@@ -10,6 +13,7 @@ var graph = {
 		this.graph.rect(0,0,this.sizeX,this.sizeY,10).
 				attr({"fill":"#ddddff"}).
 				drag(this.dragPan,this.startPan,this.endPan,this,this,this)
+		this.moveToCurState(this.track)
 		this.drawDeltas(turing.delta)
 		this.drawStates(turing.graphStates)
 		
@@ -29,12 +33,21 @@ var graph = {
 			}else {
 				curStates[turing.systemStates[level][state].state] = turing.graphStates[turing.systemStates[level][state].state]
 				for (var d in turing.systemStates[level][state].possibleDeltas){
-					curDeltas.push(turing.delta[turing.systemStates[level][ss].possibleDeltas[d]])
+					curDeltas.push(turing.delta[turing.systemStates[level][state].possibleDeltas[d]])
 				}
 			}
 			//console.log(curStates,curDeltas)
 			this.drawDeltas(curDeltas,"#aa0000")
 			this.drawStates(curStates,"#ffcccc")
+		}
+	},
+
+	moveToCurState : function(track){
+		//TODO: check if cur state and ending state in delta are both visible and correct so that in qx -> qy .. both are seen
+		//could use a nice animation 2
+		if (track && typeof turing.systemStates[turing.showLevel.level] != "undefined"){
+			this.panX = -turing.graphStates[turing.systemStates[turing.showLevel.level][turing.showLevel.state].state].x + this.trackStatePosX
+			this.panY = -turing.graphStates[turing.systemStates[turing.showLevel.level][turing.showLevel.state].state].y + this.trackStatePosY
 		}
 	},
 	

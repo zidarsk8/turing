@@ -65,7 +65,7 @@ var turing = {
 		this.addRemoveBlanks(s)
 		s.possibleDeltas = this.getDeltasFromState(s)
 		this.systemStates = [[s]]
-		this.showLevel = {level:0, state: "all"}
+		this.showLevel = {level:0, state: 0 /* n or "all" */ }
 		this.onUpdate()
 	},
 	
