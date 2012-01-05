@@ -34,7 +34,7 @@ var turing = {
 		if (check.ok){
 			this.showLevel = {level: -1, state: -1 }
 			this.systemStates = [],
-			this.graphStates = {},
+			//this.graphStates = {},
 			this.delta = []
 			this.initState = check.initState
 			this.finalStates = check.finalStates

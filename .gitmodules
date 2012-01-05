@@ -4,3 +4,6 @@
 [submodule "js/lib/underscore"]
 	path = js/lib/underscore
 	url = https://github.com/documentcloud/underscore.git
+[submodule "js/lib/JSON"]
+	path = js/lib/JSON
+	url = https://github.com/douglascrockford/JSON-js.git

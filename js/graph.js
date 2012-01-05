@@ -5,7 +5,7 @@ var graph = {
 	sizeY : 600,
 	trackStatePosX : 300,
 	trackStatePosY : 100,
-	track : true,
+	track : false,
 	graph : new Raphael(document.getElementById('graph-canvas'), "100%", "650px"),
 	update : function() {
 		if (_.keys(turing.graphStates).length == 0) return

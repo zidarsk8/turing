@@ -28,5 +28,20 @@ $(document).ready(function() {
 	turing.addUpdateCallback(function(){
 		graph.update()
 	})
-   
+	
+	$("#track_c").click(function(){
+		if ($(this).is(':checked')) {
+			graph.track = true
+		} else {
+			graph.track = false
+		}
+	})
+
+	$("#gotoCurState_b").click(function(){
+		var t = graph.track
+		graph.track = true
+		graph.update()
+		graph.track = t
+	})
+
 });
