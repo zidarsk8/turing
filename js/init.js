@@ -65,8 +65,10 @@ $(document).ready(function() {
 	})
 
 	$("#showAll_c").click(function(){
-		turing.showLevel.state = $(this).is(':checked') ? "all" : -1
-		$("#turingCodeEditor").keyup()
+		console.log(this,$(this).is(":checked"))
+		turing.showLevel.state = $(this).is(':checked') ? "all" : 0
+		//$("#turingCodeEditor").keyup()
+		graph.update()
 	})
 
 	
