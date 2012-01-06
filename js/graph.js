@@ -1,4 +1,5 @@
 var graph = {
+	textStyle : {"font":"14px serif", "text-anchor":"middle","fill":"#001111"},
 	panX : 100,
 	panY : 100,
 	sizeX : 750,
@@ -7,6 +8,7 @@ var graph = {
 	trackStatePosY : 100,
 	track : false,
 	graph : new Raphael(document.getElementById('graph-canvas'), "100%", "650px"),
+
 	update : function() {
 		if (_.keys(turing.graphStates).length == 0) return
 		this.graph.clear()
@@ -64,7 +66,7 @@ var graph = {
 					attr({"stroke-width":"2px","fill":color}).
 					drag(this.stateMove,this.startMove,this.endMove,context,context,context)
 				this.graph.text(states[i].x+this.panX, states[i].y+this.panY ,i).
-					attr({"font":"16px serif", "text-anchor":"middle","fill":"#001111"}).
+					attr(this.textStyle).
 					drag(this.stateMove,this.startMove,this.endMove,context,context,context)
 			}
 		}
@@ -84,10 +86,10 @@ var graph = {
 				var len = this.getLength(x1,y1,x2,y2)
 				var t = this.rotatePoints( x2 - len/2,y2 ,x2,y2, Raphael.rad(Raphael.angle(x2,y2,x1,y1)+25))
 				if (x1 == x2 && y1==y2) t.x+=55
-				
-				var anchor = "start"
-				if ( (x1<x2 && y1<y2) || (x1>x2 && y1<y2) ) anchor = "start"
-				if ( (x1>x2 && y1>y2) || (x1<x2 && y1>y2) ) anchor = "end"
+
+				this.textStyle["text-anchor"] = "start"
+				if ( (x1<x2 && y1<y2) || (x1>x2 && y1<y2) ) this.textStyle["text-anchor"] = "start"
+				if ( (x1>x2 && y1>y2) || (x1<x2 && y1>y2) ) this.textStyle["text-anchor"] = "end"
 				
 				var fromS =  _.reduce(_.flatten(deltas[d].fromSymbol),function(a,b){return a+" "+b} )
 				var toS =  _.reduce(_.flatten(deltas[d].toSymbol),function(a,b){return a+" "+b} )
@@ -96,10 +98,11 @@ var graph = {
 				this.graph.arrow(x1+this.panX, y1+this.panY, xyShort[0]+this.panX, xyShort[1]+this.panY, 10, 0.9).
 						attr({"stroke-width":"2px", "stroke":color})
 				this.graph.text(t.x+this.panX ,t.y+this.panY ,fromS+" -> "+toS+","+move).
-						attr({"font":"16px serif", "text-anchor":anchor,"fill":"#001111"});
+						attr(this.textStyle);
 				//TODO: make pretty colors!attr({"font":"16px serif", "text-anchor":anchor,"stroke":color,"stroke-width":"1px","fill":"#001111"});
 			}
 		}
+		this.textStyle["text-anchor"] = "middle"
 	},
 
 	rotatePoints : function(px,py,ox,oy,theta){

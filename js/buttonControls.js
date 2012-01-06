@@ -19,11 +19,9 @@ $(document).ready(function(){
 	})
 
 	$("#fontDec").click(function(){
-		console.log($("#tmInputWord").css("font-size"))
 		$("#turingCodeEditor").css("font-size",($("#turingCodeEditor").css("font-size").split("px")[0]*1-1)+"px");
 	})
 	$("#fontInc").click(function(){
-		console.log($("#tmInputWord").css("font-size"))
 		$("#turingCodeEditor").css("font-size",($("#turingCodeEditor").css("font-size").split("px")[0]*1+1)+"px");
 	})
 

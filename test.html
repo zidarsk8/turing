@@ -28,10 +28,16 @@
 		<div class="pane">
 
 			<div class="sidePane">
+				<input type="button" id="saveTm_b" value="save TM"><br>
+				<select id="tmExamples">
+					<option value="primes">primes</option>
+					<option value="fib3">3 track fibonaci</option>
+				</select>
+				<br>
 				<div class="sliderContainer"><div class="slider" id="numTapes"></div> <span id="numTapesLabel">1 Tape</span> </div>
 				<div class="sliderContainer"><div class="slider" id="numTracks"></div> <span id="numTracksLabel">1 Track</span> </div>
 				<div class="sliderContainer"><div class="sliderDim" id="numDimensions"></div> <span id="numDimensionsLabel">1 Dimension</span> </div>
-				<input type="checkbox" id="unlimited_tape"/> Unlimited tape <br>
+				<input type="checkbox" id="unlimitedTape"/> Unlimited tape <br>
 				<input type="checkbox" id="nondeterministic"/> Nondeterministic <br>
 
 				<input type="button" id="fontDec" value="font--">
@@ -50,6 +56,7 @@
 				<input type="button" id="stop_b" value="stop">
 				<input type="button" id="reset_b" value="reset">
 				<input type="checkbox" id="track_c" value="track">track
+				<input type="checkbox" id="showAll_c" value="track">Show All
 				<input type="button" id="findCurState_b" value="find current state">
 				<div id="graph-canvas"></div>
 			</div>
@@ -59,6 +66,8 @@
 			<div class="clearBoth">&nbsp;</div>
 		</div>
 
+		<script type="text/javascript" src="js/examples.js"></script>
+		<script type="text/javascript" src="js/lib/JSON/json2.js"></script>
 		<script type="text/javascript" src="js/lib/jquery-1.7.min.js"></script>
 		<script type="text/javascript" src="js/lib/chosen/chosen/chosen.jquery.min.js"></script>
 		<script type="text/javascript" src="js/lib/jquery-ui-1.8.16.custom.min.js"></script>

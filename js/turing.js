@@ -1,4 +1,5 @@
 var turing = {
+	rawDeltaString : "",
 	showLevel : {level: -1, state: -1},
 	callbacks : [],
 	paddingSize: 2,
@@ -16,6 +17,8 @@ var turing = {
 	}],
 	systemStates : [],
 	graphStates : {},
+	nondeterministic : false,
+	unlimitedTape : false,
 	
 	addDelta : function(d){
 		for (var i in this.delta) //check if identical delta exists
@@ -32,6 +35,7 @@ var turing = {
 	parseDeltaString : function(ds){
 		var check = this.checkDeltaSyntax(ds)
 		if (check.ok){
+			this.rawDeltaString = ds
 			this.showLevel = {level: -1, state: -1 }
 			this.systemStates = [],
 			//this.graphStates = {},
@@ -122,7 +126,7 @@ var turing = {
 					$.extend(true,cc,ss[ssl-1][i])
 					for (var ti=0; ti < this.numTapes; ti++){
 						for (var tj=0; tj < this.numTracks; tj++){
-							cc.tapes[cc.pos[i][0]][ti][tj][cc.pos[ti][1]] = this.delta[dd].toSymbol[ti][tj]
+							cc.tapes[cc.pos[ti][0]][ti][tj][cc.pos[ti][1]] = this.delta[dd].toSymbol[ti][tj]
 						}
 					}
 					cc.pos = this.getNewPosition(cc.pos,this.delta[dd].move)
@@ -167,14 +171,20 @@ var turing = {
 		}
 
 		arr = arr.slice(2)
+		var fromDeltas = []
 		for (var i in arr){
 			if (arr[i].trim().length > 10 ){		
 				var s = _.map(arr[i].replace(/<.*?>/g,"").split("-&gt;"),function(s){return s.trim().split(" ")})
+				
 				cok = s.length == 2 && s[0].length == 1+this.numTapes*this.numTracks && 
 				s[1].length == 1+this.numTapes*this.numTracks + this.numTapes &&
 				_.reduce(_.map(s[0].slice(1), function(n){return n.length ==1}),function(a,b){return a && b}) && 
 				_.reduce(_.map(s[1].slice(1), function(n){return n.length ==1}),function(a,b){return a && b}) && 
 				_.reduce(_.map(s[1].slice(s[1].length-this.numTapes), function(n){return moves.indexOf(n) != -1 }),function(a,b){return a && b}) 
+
+				cok &= (this.nondeterministic || fromDeltas.indexOf(s[0]+"") == -1 )
+				fromDeltas.push(s[0]+"")
+
 				check.ok &= cok
 				check.okArr.push(cok)
 				check.dsa.push(arr[i].replace(/<.*?>/g,""))
