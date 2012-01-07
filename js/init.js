@@ -20,4 +20,8 @@ $(document).ready(function() {
 		graph.update()
 	})
 	
+	turing.addUpdateCallback(function(){
+		historyGraph.update()
+	})
+	
 });

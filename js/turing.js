@@ -70,6 +70,7 @@ var turing = {
 			state: this.initState, 
 			tapes: [[[trackWord.split("")]]], 
 			pos: tp,
+			from: 0,
 			possibleDeltas: []
 		}
 		this.addRemoveBlanks(s)
@@ -133,6 +134,7 @@ var turing = {
 					this.addRemoveBlanks(cc)
 					cc.state = _.clone(this.delta[dd].toState)
 					cc.possibleDeltas = this.getDeltasFromState(cc)
+					cc.from = i*1
 					ss[ssl].push(cc)
 				}
 			}
