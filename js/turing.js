@@ -1,4 +1,6 @@
 var turing = {
+	finished : false,
+	accepted : false,
 	rawDeltaString : "",
 	showLevel : {level: -1, state: -1},
 	callbacks : [],
@@ -35,6 +37,8 @@ var turing = {
 	parseDeltaString : function(ds){
 		var check = this.checkDeltaSyntax(ds)
 		if (check.ok){
+			this.finished = false
+			this.accepted = false
 			this.rawDeltaString = ds
 			this.showLevel = {level: -1, state: this.showLevel.state == "all" ? "all" : -1 }
 			this.systemStates = [],
@@ -117,7 +121,7 @@ var turing = {
 		var ss = this.systemStates
 		var ssl = ss.length
 		
-		if (this.showLevel.level + 2 > ssl){
+		if (!this.finished && this.showLevel.level + 2 > ssl){
 			ss.push([])
 			for (var i in ss[ssl-1]){
 				for (var d in ss[ssl-1][i].possibleDeltas){
@@ -136,10 +140,19 @@ var turing = {
 					cc.possibleDeltas = this.getDeltasFromState(cc)
 					cc.from = i*1
 					ss[ssl].push(cc)
+					if (_.contains(this.finalStates,cc.state)){
+						this.finished = true
+						this.accepted = false
+					}
 				}
 			}
+			if (_.last(ss).length == 0){
+				this.finished = true
+				this.accepted = false
+				ss = _.initial(ss)
+			}
 		}
-		this.showLevel.level++
+		this.showLevel.level += this.showLevel.level+1 < ss.length ? 1 : 0
 		this.onUpdate()
 	},
 

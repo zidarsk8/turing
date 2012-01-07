@@ -64,9 +64,12 @@ var graph = {
 		if (typeof color == "undefined") color = "#fff"
 		for (var i in states){
 			if (states[i].x+this.panX>0 && states[i].x+this.panX<this.sizeX && states[i].y+this.panY>0 && states[i].y+this.panY < this.sizeY){
+				var a = {"stroke-width":"2px","fill":color,"stroke":"#000000"}
+				if (states[i].fin)
+					a = {"stroke-width":"4px","fill":color,"stroke":"#00aa00"}
 				var context = {x:0,y:0,q:i,graph:this}
 				this.graph.circle(states[i].x+this.panX, states[i].y+this.panY, 20).
-					attr({"stroke-width":"2px","fill":color}).
+					attr(a).
 					drag(this.stateMove,this.startMove,this.endMove,context,context,context)
 				this.graph.text(states[i].x+this.panX, states[i].y+this.panY ,i).
 					attr(this.textStyle).

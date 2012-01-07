@@ -22,20 +22,27 @@ $(document).ready(function(){
 	$("#fontDec").click(function(){
 		$("#turingCodeEditor").css("line-height",($("#turingCodeEditor").css("line-height").split("px")[0]*1-1)+"px");
 		$("#turingCodeEditor").css("font-size",($("#turingCodeEditor").css("font-size").split("px")[0]*1-1)+"px");
+		resizeTmEditor()
 	})
 	$("#fontInc").click(function(){
 		$("#turingCodeEditor").css("line-height",($("#turingCodeEditor").css("line-height").split("px")[0]*1+1)+"px");
 		$("#turingCodeEditor").css("font-size",($("#turingCodeEditor").css("font-size").split("px")[0]*1+1)+"px");
+		resizeTmEditor()
 	})
 	
-	//$("#turingCodeEditor").keyup(function(){
-	
-	function turingCheck(){
+	$("#turingCodeEditor").keyup(function(){
+		resizeTmEditor()
+	})
+
+	function resizeTmEditor(){
 		var tm = $("#turingCodeEditor")
-		//console.log(tm.html().split("<br>"))
 		var size = (tm.css("line-height").split("px")[0]*1)
 		var lines = tm.html().split("<br>").length
 		tm.css("height",Math.floor(size*lines))
+	}
+	
+	function turingCheck(){
+		var tm = $("#turingCodeEditor")
 
 		var check = turing.parseDeltaString(tm.html(),$("#numTapes").val(),$("#numTracks").val(),$("#numDimensions").val())
 		var text = ""
