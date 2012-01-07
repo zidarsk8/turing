@@ -2,13 +2,11 @@ var historyGraph = {
 	textStyle : {"font":"14px serif", "text-anchor":"middle","fill":"#001111"},
 	panX : 150,
 	panY : 20,
-	sizeX : 300,
-	sizeY : 300,
+	sizeX : 750,
+	sizeY : 600,
 	r : 16,
-	trackStatePosX : 300,
-	trackStatePosY : 100,
 	track : false,
-	graph : new Raphael(document.getElementById('historyGraph-canvas'), "300px", "300px"),
+	graph : new Raphael(document.getElementById('historyGraph-canvas'), "750px", "600px"),
 
 	update : function() {
 		var ss = turing.systemStates

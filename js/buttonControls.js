@@ -87,28 +87,31 @@ $(document).ready(function(){
 	})
 	
 	$("#saveTm_b").click(function(){
-		console.log(turing.rawDeltaString)
-		console.log(JSON.stringify(turing))
+		var t = {}
+		$.extend(true,t,turing)
+		delete(t.callbacks)
+		console.log(JSON.stringify(t))
 	})
 	
 	$("#tmExamples").change(function(){
 		$("#tmExamples option:selected").each(function(){
 			$.extend(true,turing,examples[$(this).val()])
 			$("#numTapes").slider("value",turing.numTapes)
+			$("#numTapesLabel").html(turing.numTapes+" Tape"+(turing.numTapes > 1 ? "s" : ""))
 			$("#numTracks").slider("value",turing.numTracks)
+			$("#numTracksLabel").html(turing.numTracks+" Track"+(turing.numTracks> 1 ? "s" : ""))
 			$("#numDimensions").slider("value",turing.numDimensions)
+			$("#numDimensionsLabel").html(turing.numDimensions+" Dimension"+(turing.numDimensions> 1 ? "s" : ""))
 			$("#turingCodeEditor").html(turing.rawDeltaString).keyup()
 			$('#nondeterministic').attr('checked', turing.nondeterministic);
 			$('#showAll_c').attr('checked', turing.showLevel.state == "all" );
-			console.log(turing.showLevel.state)
+			$("#load_b").click()
 			//TODO: view all states or just one 
 		})
 	})
 
 	$("#showAll_c").click(function(){
-		console.log(this,$(this).is(":checked"))
 		turing.showLevel.state = $(this).is(':checked') ? "all" : 0
-		//$("#turingCodeEditor").keyup()
 		graph.update()
 	})
 

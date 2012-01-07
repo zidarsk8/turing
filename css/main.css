@@ -144,7 +144,7 @@ h1 {
 }
 
 .whereStuffHappens{
-	float: left;
+	float: right;
 	margin: 0 auto 2em auto;
 	padding: 10px;
 	width: 780px;
