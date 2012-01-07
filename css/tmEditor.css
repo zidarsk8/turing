@@ -33,5 +33,10 @@
 	height: 500px;
 	padding: 10px;
 	font-family: monospace;
-	line-height: 1.4em;
+	line-height: 17px;
+	font-size: 14px:
+}
+
+.error {
+	color: red;
 }

@@ -36,7 +36,7 @@ var turing = {
 		var check = this.checkDeltaSyntax(ds)
 		if (check.ok){
 			this.rawDeltaString = ds
-			this.showLevel = {level: -1, state: -1 }
+			this.showLevel = {level: -1, state: this.showLevel.state == "all" ? "all" : -1 }
 			this.systemStates = [],
 			//this.graphStates = {},
 			this.delta = []
@@ -155,19 +155,34 @@ var turing = {
 	},
 	
 	checkDeltaSyntax : function(ds){
-		var check = {ok:true, dsa:[] , okArr:[]}
+		var check = {ok:true, dsa:[] , initState:"", finalStates:[], okArr:[]}
 		var moves = this.numDimensions == 2 ? "LRSUP" : "LRS"
 		var cok = false
 		var arr = ds.replace(/\n/g,"").split("<br>")
-		if (arr.length <3 || arr[0].indexOf("init: ")==-1 || 
-				arr[1].indexOf("final: ")==-1 || 
-				arr[1].trim().split(" ").length < 2 || 
-				arr[0].trim().split(" ").length < 2){
-			check.ok = false
-			return check
+		if (arr.length <3 ){
+			return {
+				ok : false,
+				initState : "q0",
+				finalStates : ["qf"],
+				okArr : [true,true,false],
+				dsa : [" "]
+			}
+		}
+		arr[0] = arr[0].replace(/<.*?>/g,"").trim()
+		if (arr[0].indexOf("init: ")==-1 || arr[0].split(" ")[1].length < 2){
+			check.ok &= false
+			check.okArr.push(false)
 		}else{
-			check.initState = arr[0].trim().split(" ")[1]
-			check.finalStates = arr[1].trim().split(" ").slice(1)
+			check.initState = arr[0].split(" ")[1]
+			check.okArr.push(true)
+		}
+		arr[1] = arr[1].replace(/<.*?>/g,"").trim()
+		if (arr[1].indexOf("final: ")==-1 || arr[1].split(" ")[1].length < 2){
+			check.ok &= false
+			check.okArr.push(false)
+		}else{
+			check.finalStates = arr[1].split(" ").slice(1)
+			check.okArr.push(true)
 		}
 
 		arr = arr.slice(2)

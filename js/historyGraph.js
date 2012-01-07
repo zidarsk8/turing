@@ -1,4 +1,4 @@
-var graph = {
+var historyGraph = {
 	textStyle : {"font":"14px serif", "text-anchor":"middle","fill":"#001111"},
 	panX : 100,
 	panY : 100,
@@ -7,11 +7,14 @@ var graph = {
 	trackStatePosX : 300,
 	trackStatePosY : 100,
 	track : false,
-	graph : new Raphael(document.getElementById('graph-canvas'), "100%", "650px"),
+	graph : new Raphael(document.getElementById('historyGraph-canvas'), "100%", "650px"),
 
 	update : function() {
 		if (_.keys(turing.graphStates).length == 0) return
-		this.clear()
+		this.graph.clear()
+		this.graph.rect(0,0,this.sizeX,this.sizeY,10).
+				attr({"fill":"#ddddff"}).
+				drag(this.dragPan,this.startPan,this.endPan,this,this,this)
 		this.moveToCurState(this.track)
 		this.drawDeltas(turing.delta)
 		this.drawStates(turing.graphStates)
@@ -155,13 +158,6 @@ var graph = {
 		this.panY = this.origPosY + dy
 		this.update()
 	},
-	endPan : function(e){},
-	
-	clear : function(){
-		this.graph.clear()
-		this.graph.rect(0,0,this.sizeX,this.sizeY,10).
-				attr({"fill":"#ddddff"}).
-				drag(this.dragPan,this.startPan,this.endPan,this,this,this)
-	}
+	endPan : function(e){}
 }
 
