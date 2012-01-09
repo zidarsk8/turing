@@ -72,6 +72,7 @@ var graph = {
 	},
 	
 	drawDeltas : function(deltas,color){
+    selfConns = {};
 		if (typeof color == "undefined") color = "#000"
 		for (var d in deltas){
 			var x1 = turing.graphStates[deltas[d].fromState].x
@@ -94,6 +95,15 @@ var graph = {
 				var toS =  _.reduce(_.flatten(deltas[d].toSymbol),function(a,b){return a+" "+b} )
 				var move =  _.reduce(_.flatten(deltas[d].move),function(a,b){return a+" "+b} )
 				
+        var hash = deltas[d].fromState+deltas[d].toState;
+        if(selfConns[hash]==undefined) {
+          selfConns[hash] = 0;
+        } else {
+          selfConns[hash] +=1;
+        }
+        
+        t.y += selfConns[hash]*20;
+        
 				this.graph.curvedArrow(x1+this.panX, y1+this.panY, xyShort[0]+this.panX, xyShort[1]+this.panY, 10, 0.9).
 						attr({"stroke-width":"2px", "stroke":color})
 				this.graph.text(t.x+this.panX ,t.y+this.panY ,fromS+" -> "+toS+","+move).
