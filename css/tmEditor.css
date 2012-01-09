@@ -13,12 +13,12 @@
 }
 
 .sliderContainer{
-	height: 36px;
+	height: 30px;
 }
 
 .sliderContainer span{
-	height: 36px;
-	padding: 7px 0px 0px 15px;
+	height: 30px;
+	padding: 9px 0px 0px 15px;
 	vertical-align: middle;
 }
 

@@ -1,186 +1,203 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<title>jQuery UI Example Page</title>
+		<link type="text/css" href="css/cupertino/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
 
-	<title>Turing Machine Simulator</title>
-	<meta name="description" content="Turing Machine Simulator">
-	<meta name="author" content="psywerx">
-	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="css/main.css">
-	<link rel="stylesheet" href="js/lib/chosen/chosen/chosen.css">
-	<link rel="stylesheet" href="css/flick/jquery-ui-1.8.16.custom.css">
-</head>
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/tmEditor.css">
+		<style type="text/css">
+			/*demo page css*/
+			.demoHeaders { margin-top: 2em; }
+			#dialog_link {padding: .4em 1em .4em 20px;text-decoration: none;position: relative;}
+			#dialog_link span.ui-icon {margin: 0 5px 0 0;position: absolute;left: .2em;top: 50%;margin-top: -8px;}
+			ul#icons {margin: 0; padding: 0;}
+			ul#icons li {margin: 2px; position: relative; padding: 4px 0; cursor: pointer; float: left;  list-style: none;}
+			ul#icons span.ui-icon {float: left; margin: 0 4px;}
+		</style>	
+	</head>
+	<body>
 
-<body>
-<header id="banner">
-	<div class="body" id="header">
-		<h1>Turing Machine Simulator</h1>
-	</div>
-	<nav class="body">
-		<a href="#" id="navmachine"><img src="img/settings.png" />Machine</a>
-		<a href="#" id="navgraph"><img src="img/graph.png" />Graph</a>
-		<a href="#" id="navsimulation"><img src="img/simulation.png" />Simulation</a>
-		<a href="#" id="navabout"><img src="img/about.png" />About</a>
-	</nav>
-</header>
 
-<div class="pane" id="machine">
-	<div id="tabs">
-		<ul>
-			<li><a href="#tabs-1">Basic</a></li>
-			<li><a href="#tabs-3">Advanced</a></li>
-			<li><a href="#tabs-2">Add instruction</a></li>
-			<li><a href="#tabs-4">Encoded</a></li>
-		</ul>
+		
+		<header id="banner">
+			<div class="body" id="header">
+				<h1>Turing Machine Simulator</h1>
+			</div>
+		</header>
 
-		<div id="tabs-1">
-			<table>
-				<thead>
-					<tr>
-						<th><label for="alphabet">Alphabet:</label></th>
-						<th><label for="num_states">Number of states:</label></th>
-						<th><label for="final_states">Final states:</label></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td><input type="text" value="0,1" name="alphabet" id="alphabet" /></td>
-						<td><input type="text" value="2" name="num-states" id="num-states" /></td>
-						<td><select id="final_states" multiple><option selected>q1</option></select></td>
-					</tr>
-				</tbody>
-			</table>
+
+		<div class="body ui-widget ui-widget-content ui-corner-all">
+			<div class="sidePane ui-widget ui-widget-content ui-corner-all">
+				<button id="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
+					<span class="ui-button-text">Save TM</span>
+				</button><br>
+				<select id="tmExamples">
+					<option value="primes">primes</option>
+					<option value="primes">primes</option>
+					<option value="fib3">3 track fibonaci</option>
+					<option value="fib3">3 track fibonaci</option>
+					<option value="fib2">2 track fibonaci</option>
+					<option value="fib2">2 track fibonaci</option>
+				</select><br>
+				<div class="sliderContainer"><div class="slider" id="numTapes"></div> <span id="numTapesLabel">1 Tape</span> </div>
+				<div class="sliderContainer"><div class="slider" id="numTracks"></div> <span id="numTracksLabel">1 Track</span> </div>
+				<div class="sliderContainer"><div class="sliderDim" id="numDimensions"></div> <span id="numDimensionsLabel">1 Dimension</span> </div>
+
+				<input type="checkbox" id="unlimitedTape"/> Unlimited tape <br>
+				<input type="checkbox" id="nondeterministic"/> Nondeterministic <br>
+
+				<input type="button" id="fontDec" value="font--">
+				<input type="button" id="fontInc" value="font++">
+
+				<div contenteditable="true" class="turingCodeEditor" id="turingCodeEditor" >init: q0<br>final: q1 q2 q3</div>
+			</div>
+			<div class="whereStuffHappens ui-widget ui-widget-content ui-corner-all">
+				<textarea cols="44" rows="1" id="tmInputWord"></textarea>
+				<ul id="icons" class="ui-widget ui-helper-clearfix">
+					<li id="load_b" class="ui-state-default ui-corner-all" title=".ui-icon-circle-plus"><span class="ui-icon ui-icon-circle-plus"></span></li>
+					<li id="prev_b" class="ui-state-default ui-corner-all" title=".ui-icon-seek-prev"><span class="ui-icon ui-icon-seek-prev"></span></li>
+					<li id="pause_b" class="ui-state-default ui-corner-all" title=".ui-icon-pause"><span class="ui-icon ui-icon-pause"></span></li>
+					<li id="play_b" class="ui-state-default ui-corner-all" title=".ui-icon-play"><span class="ui-icon ui-icon-play"></span></li>
+					<li id="next_b" class="ui-state-default ui-corner-all" title=".ui-icon-seek-next"><span class="ui-icon ui-icon-seek-next"></span></li>
+					<li id="stop_b" class="ui-state-default ui-corner-all" title=".ui-icon-stop"><span class="ui-icon ui-icon-stop"></span></li>
+					<li id="findCurState_b" class="ui-state-default ui-corner-all" title=".ui-icon-search"><span class="ui-icon ui-icon-search"></span></li>
+				</ul>
+
+				<input type="checkbox" id="track_c" value="track">track
+				<input type="checkbox" id="showAll_c" value="track">Show All
+				
+				<div id="accordionEx">
+					<div>
+						<h3><a href="#">Turing Machine Graph</a></h3>
+						<div>
+							<div id="graph-canvas"></div>
+						</div>
+					</div>
+					<div>
+						<h3><a href="#">History Graph</a></h3>
+						<div>
+							<div id="historyGraph-canvas"></div>
+						</div>
+					</div>
+					<div>
+						<h3><a href="#">Tracks</a></h3>
+						<div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="clearBoth">&nbsp;</div>
+	
 		</div>
+		<script type="text/javascript" src="js/examples.js"></script>
+		<script type="text/javascript" src="js/lib/JSON/json2.js"></script>
+		<script type="text/javascript" src="js/lib/raphael-min.js"></script>
+		<script type="text/javascript" src="js/lib/raphael-extension.js"></script>
+		<script type="text/javascript" src="js/lib/underscore/underscore-min.js"></script>
+		<script type="text/javascript" src="js/lib/jquery-1.7.min.js"></script>
+		<script type="text/javascript" src="js/lib/jquery-ui-1.8.16.custom.min.js"></script>
+		<script type="text/javascript" src="js/ui/jquery.ui.selectmenu.js"></script>
+		<script type="text/javascript" src="js/ui/jquery.ui.selectmenu.js"></script>
+		<script type="text/javascript" src="js/ui/jquery.usermode.js"></script>
+		<script type="text/javascript" src="js/ui/jquery.ui.checkbox.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-extended-accordion.js"></script>
+		<!--script type="text/javascript" src="js/lib/chosen/chosen/chosen.jquery.min.js"></script-->
+		<script type="text/javascript" src="js/eventHandlers.js"></script>
+		<script type="text/javascript" src="js/buttonControls.js"></script>
+		<script type="text/javascript" src="js/functions.js"></script>
+		<script type="text/javascript" src="js/turing.js"></script>
+		<script type="text/javascript" src="js/graph.js"></script>
+		<script type="text/javascript" src="js/historyGraph.js"></script>
+		<script type="text/javascript" src="js/init.js"></script>
 
-		<div id="tabs-2">
-			<table id="add_instruction_table">
-				<thead>
-					<tr>
-						<th><label for="state_in">Input state</label></th>
-						<th><label for="state_out">Output state</label></th>
-						<th><label for="input">Input character</label></th>
-						<th><label for="output">Output character</label></th>
-						<th><label for="move">Move</label></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr id="track">
-						<td><select id="state_in"><option value="0">q0</option></select></td>
-						<td><select id="state_out"><option value="0">q0</option></select></td>
-						<td class="input_trails"><select id="input_trail_0_0"><option>0</option><option>1</option></select></td>
-						<td class="output_trails"><select id="output_trail_0_0"><option>0</option><option>1</option></select></td>
-						<td class="tape_move"><select id="tape_move_0"><option>L</option><option>R</option><option>NONE</option></select></td>
-						<td id="add_instruction"><button>Add</button></td>
-					</tr>
-				</tbody>
-			</table>
 
-			<table id="list_instruction_table">
-				<thead>
-					<tr>
-						<th><label for="state_in">Input state</label></th>
-						<th><label for="state_out">Output state</label></th>
-						<th><label for="input">Input character</label></th>
-						<th><label for="output">Output character</label></th>
-						<th><label for="move">Tape move</label></th>
-					</tr>
-				</thead>
-				<tbody id="list_instruction_body">
 
-				</tbody>
-			</table>
 
-		</div>
-		<div id="tabs-3">
-			<table>
-				<thead>
-					<tr>
-						<th><label for="num_trails">Number of trails</label></th>
-						<th><label for="num_tapes">Number of tapes</label></th>
-						<th><label for="num_diensions">Dimensions</label></th>
-						<th><label for="unlimited_tape">Unlimited in both directions</label></th>
-						<th><label for="nondeterministic">Non-deterministic</label></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td><div class="slider" id="num_trails"></div></td>
-						<td><div class="slider" id="num_tapes"></div></td>
-						<td><div class="slider" id="num_dimensions"></div></td>
-						<td><input type="checkbox" id="unlimited_tape"/></td>
-						<td><input type="checkbox" id="nondeterministic"/></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div id="tabs-4">
-			<textarea rows="10" cols="60" id = "encoded_output"></textarea>
-		</div>
+		<script type="text/javascript">
+			$(function(){
+					$("#accordionEx").accordionEx({ header: "h3" });
+					
+					//TODO: to ne dela
+					//$('#tmExamples').selectmenu();
+					
+					handle_slider = function(e, ui){
+						turing[this.id] = ui.value;
+						$("#"+this.id+"Label").html(ui.value+" "+this.id.substr(3,this.id.length-4+(ui.value>1)))
+						turing[this.id] = ui.value;
+						$("#turingCodeEditor").keyup()
+					};
 
-	</div>
-</div>
+					$(".slider").slider({
+						value:1,
+						min: 1,
+						max: 5,
+						step: 1,
+						slide: handle_slider,
+					})
+					
+					$(".sliderDim").slider({
+						value:1,
+						min: 1,
+						max: 2,
+						step: 1,
+						slide: handle_slider,
+					})
 
-<div class="pane" id="graph">
-	<input type="button" name="graph-update" id="graph-update" value="Update graph" />
-	<div id="graph-canvas"></div>
-</div>
+					//TODO: to ne dela
+					//$("#unlimitedTape").checkBox();
+					
+					// Tabs
+					$('#tabs').tabs();
 
-<div class="pane" id="simulation">
-	<div id="sim-settings">
-		<table>
-			<thead>
-				<tr>
-					<th><label for="sim-input">Machine input</label></th>
-					<th><label>Flow control</label></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td><input type="text" value="01101010101010" name="sim-input" id="sim-input" /></td>
-					<td>
-						<input type="button" value="Start" name="sim-button-start" id="sim-button-start" />
-						<input type="button" value="Step" name="sim-button-step" id="sim-button-step" />
-					</td>
-				</tr>
-			</tbody>
-		</table>        
-	</div>
 
-	<div id="sim-head-container">
-		<div id="sim-head">
-			State: <span id="sim-head-state">q0</span><br/>
-			Input: <span id="sim-head-input">-</span>
-			Move: <span id="sim-head-move">-</span>
-		</div>
-		<div style="padding:20px">imagine a magical line down to the tape</div>
-	</div>
-	<div id="sim-tape"></div>
-</div>
-
-<div class="pane" id="about">
-	<div id="tabs">
-		Hi, go to: <a href="http://psywerx.net">psywerx</a>.
-	</div>
-</div>
-
-<!--     <section class="body">
-TODO: everything.
-</section>
-
-<footer id="contentinfo" class="body">
-footer
-</footer>
--->
-<script type="text/javascript" src="js/lib/jquery-1.7.min.js"></script>
-<script type="text/javascript" src="js/lib/chosen/chosen/chosen.jquery.min.js"></script>
-<script type="text/javascript" src="js/lib/jquery-ui-1.8.16.custom.min.js"></script>
-<script type="text/javascript" src="js/lib/raphael-min.js"></script>
-<script type="text/javascript" src="js/functions.js"></script>
-<script type="text/javascript" src="js/turing.js"></script>
-<script type="text/javascript" src="js/graph.js"></script>
-<script type="text/javascript" src="js/init.js"></script>
-</body>
+					// Dialog			
+					$('#dialog').dialog({
+					autoOpen: false,
+					width: 600,
+					buttons: {
+					"Ok": function() { 
+					$(this).dialog("close"); 
+					}, 
+					"Cancel": function() { 
+					$(this).dialog("close"); 
+					} 
+					}
+					});
+					
+					// Dialog Link
+					$('#dialog_link').click(function(){
+							$('#dialog').dialog('open');
+							return false;
+							});
+					
+					// Datepicker
+					$('#datepicker').datepicker({
+					inline: true
+					});
+					
+					// Slider
+					$('#slider').slider({
+					range: true,
+					values: [17, 67]
+					});
+					
+					// Progressbar
+					$("#progressbar").progressbar({
+					value: 20 
+					});
+					
+					//hover states on the static widgets
+					$('#dialog_link, ul#icons li').hover(
+							function() { $(this).addClass('ui-state-hover'); }, 
+							function() { $(this).removeClass('ui-state-hover'); }
+							);
+					
+			});
+		</script>
+	</body>
 </html>
+
+

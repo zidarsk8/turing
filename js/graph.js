@@ -2,12 +2,12 @@ var graph = {
 	textStyle : {"font":"14px serif", "text-anchor":"middle","fill":"#001111"},
 	panX : 100,
 	panY : 100,
-	sizeX : 750,
+	sizeX : 700,
 	sizeY : 600,
 	trackStatePosX : 300,
 	trackStatePosY : 100,
 	track : false,
-	graph : new Raphael(document.getElementById('graph-canvas'), "100%", "650px"),
+	graph : new Raphael(document.getElementById('graph-canvas'), "700px", "600px"),
 
 	update : function() {
 		if (_.keys(turing.graphStates).length == 0) return
@@ -163,7 +163,7 @@ var graph = {
 	clear : function(){
 		this.graph.clear()
 		this.graph.rect(0,0,this.sizeX,this.sizeY,10).
-				attr({"fill":"#ddddff"}).
+				attr({"fill":"#ddddff","stroke":"#dddff"}).
 				drag(this.dragPan,this.startPan,this.endPan,this,this,this)
 	}
 }
