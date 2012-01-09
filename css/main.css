@@ -139,3 +139,17 @@ h1 {
 	width: 780px;
 }
 
+.trackTable{
+	border: 1px solid #444444;
+}
+
+.trackTable tr td{
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.selectedWindow {
+	background: #9988ff;	
+}

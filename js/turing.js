@@ -4,7 +4,7 @@ var turing = {
 	rawDeltaString : "",
 	showLevel : {level: -1, state: -1},
 	callbacks : [],
-	paddingSize: 2,
+	paddingSize: 10,
 	numTapes : 1,
 	numTracks : 1,
 	numDimensions : 1,

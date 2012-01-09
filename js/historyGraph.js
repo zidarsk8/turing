@@ -66,18 +66,14 @@ var historyGraph = {
 				click(function(e){
 					turing.showLevel.level = b
 					turing.showLevel.state = a
-					self.update()
-					graph.moveToCurState()
-					graph.update()
+					turing.onUpdate()
 				})
 			this.graph.text(x+this.panX, y+this.panY , state.state).
 				attr(this.textStyle).
 				click(function(e){
 					turing.showLevel.level = b
 					turing.showLevel.state = a
-					self.update()
-					graph.moveToCurState()
-					graph.update()
+					turing.onUpdate()
 				})
 		}
 	},

@@ -84,6 +84,7 @@
 					<div>
 						<h3><a href="#">Tracks</a></h3>
 						<div>
+							<div id="showTracks"></div>
 						</div>
 					</div>
 				</div>
@@ -104,98 +105,13 @@
 		<script type="text/javascript" src="js/ui/jquery.ui.checkbox.js"></script>
 		<script type="text/javascript" src="js/jquery-ui-extended-accordion.js"></script>
 		<!--script type="text/javascript" src="js/lib/chosen/chosen/chosen.jquery.min.js"></script-->
-		<script type="text/javascript" src="js/eventHandlers.js"></script>
 		<script type="text/javascript" src="js/buttonControls.js"></script>
 		<script type="text/javascript" src="js/functions.js"></script>
 		<script type="text/javascript" src="js/turing.js"></script>
 		<script type="text/javascript" src="js/graph.js"></script>
 		<script type="text/javascript" src="js/historyGraph.js"></script>
+		<script type="text/javascript" src="js/showTracks.js"></script>
 		<script type="text/javascript" src="js/init.js"></script>
-
-
-
-
-		<script type="text/javascript">
-			$(function(){
-					$("#accordionEx").accordionEx({ header: "h3" });
-					
-					//TODO: to ne dela
-					//$('#tmExamples').selectmenu();
-					
-					handle_slider = function(e, ui){
-						turing[this.id] = ui.value;
-						$("#"+this.id+"Label").html(ui.value+" "+this.id.substr(3,this.id.length-4+(ui.value>1)))
-						turing[this.id] = ui.value;
-						$("#turingCodeEditor").keyup()
-					};
-
-					$(".slider").slider({
-						value:1,
-						min: 1,
-						max: 5,
-						step: 1,
-						slide: handle_slider,
-					})
-					
-					$(".sliderDim").slider({
-						value:1,
-						min: 1,
-						max: 2,
-						step: 1,
-						slide: handle_slider,
-					})
-
-					//TODO: to ne dela
-					//$("#unlimitedTape").checkBox();
-					
-					// Tabs
-					$('#tabs').tabs();
-
-
-					// Dialog			
-					$('#dialog').dialog({
-					autoOpen: false,
-					width: 600,
-					buttons: {
-					"Ok": function() { 
-					$(this).dialog("close"); 
-					}, 
-					"Cancel": function() { 
-					$(this).dialog("close"); 
-					} 
-					}
-					});
-					
-					// Dialog Link
-					$('#dialog_link').click(function(){
-							$('#dialog').dialog('open');
-							return false;
-							});
-					
-					// Datepicker
-					$('#datepicker').datepicker({
-					inline: true
-					});
-					
-					// Slider
-					$('#slider').slider({
-					range: true,
-					values: [17, 67]
-					});
-					
-					// Progressbar
-					$("#progressbar").progressbar({
-					value: 20 
-					});
-					
-					//hover states on the static widgets
-					$('#dialog_link, ul#icons li').hover(
-							function() { $(this).addClass('ui-state-hover'); }, 
-							function() { $(this).removeClass('ui-state-hover'); }
-							);
-					
-			});
-		</script>
 	</body>
 </html>
 
