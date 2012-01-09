@@ -4,8 +4,8 @@ var graph = {
 	panY : 100,
 	sizeX : 700,
 	sizeY : 600,
-	trackStatePosX : 300,
-	trackStatePosY : 100,
+	trackStatePosX : 350,
+	trackStatePosY : 300,
 	track : false,
 	graph : new Raphael(document.getElementById('graph-canvas'), "700px", "600px"),
 
@@ -22,36 +22,29 @@ var graph = {
 			var curDeltas = []
 			var curStates = {}
 			
-			if (state == "all"){
-				for (var ss in turing.systemStates[level]){
-					curStates[turing.systemStates[level][ss].state] = turing.graphStates[turing.systemStates[level][ss].state]
-					for (var d in turing.systemStates[level][ss].possibleDeltas){
-						curDeltas.push(turing.delta[turing.systemStates[level][ss].possibleDeltas[d]])
-					}
-				}
-			}else {
-				curStates[turing.systemStates[level][state].state] = turing.graphStates[turing.systemStates[level][state].state]
-				for (var d in turing.systemStates[level][state].possibleDeltas){
-					curDeltas.push(turing.delta[turing.systemStates[level][state].possibleDeltas[d]])
+			for (var ss in turing.systemStates[level]){
+				curStates[turing.systemStates[level][ss].state] = turing.graphStates[turing.systemStates[level][ss].state]
+				for (var d in turing.systemStates[level][ss].possibleDeltas){
+					curDeltas.push(turing.delta[turing.systemStates[level][ss].possibleDeltas[d]])
 				}
 			}
-			//console.log(curStates,curDeltas)
 			this.drawDeltas(curDeltas,"#aa0000")
 			this.drawStates(curStates,"#ffcccc")
+
+			for (var d in turing.systemStates[level][state].possibleDeltas){
+				this.drawDeltas([turing.delta[turing.systemStates[level][state].possibleDeltas[d]]],"#ff0000")
+			}
+			curStates = {}
+			curStates[turing.systemStates[level][state].state] = turing.graphStates[turing.systemStates[level][state].state]
+			this.drawStates(curStates,"#ff7777")
 		}
 	},
 
 	moveToCurState : function(track){
 		//TODO: check if cur state and ending state in delta are both visible and correct so that in qx -> qy .. both are seen
 		//could use a nice animation 2
-		if (turing.showLevel.state == "all"){
-			if (track && typeof turing.systemStates[turing.showLevel.level] != "undefined"){
-				this.moveToState(turing.graphStates[turing.systemStates[turing.showLevel.level][0].state])
-			}
-		}else{
-			if (track && typeof turing.systemStates[turing.showLevel.level] != "undefined"){
-				this.moveToState(turing.graphStates[turing.systemStates[turing.showLevel.level][turing.showLevel.state].state])
-			}
+		if (track && typeof turing.systemStates[turing.showLevel.level] != "undefined"){
+			this.moveToState(turing.graphStates[turing.systemStates[turing.showLevel.level][turing.showLevel.state].state])
 		}
 	},
 

@@ -77,6 +77,7 @@ $(document).ready(function(){
 
 	$("#track_c").click(function(){
 		graph.track = $(this).is(':checked')
+		historyGraph.track = $(this).is(':checked')
 	})
 
 	$("#findCurState_b").click(function(){
@@ -84,6 +85,8 @@ $(document).ready(function(){
 		graph.track = true
 		graph.update()
 		graph.track = t
+		historyGraph.moveToCur()
+		historyGraph.update()
 	})
 	
 	$("#saveTm_b").click(function(){
@@ -108,11 +111,6 @@ $(document).ready(function(){
 			$("#load_b").click()
 			//TODO: view all states or just one 
 		})
-	})
-
-	$("#showAll_c").click(function(){
-		turing.showLevel.state = $(this).is(':checked') ? "all" : 0
-		graph.update()
 	})
 
 })

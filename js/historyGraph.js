@@ -11,6 +11,7 @@ var historyGraph = {
 	update : function() {
 		var ss = turing.systemStates
 		if (_.keys(ss).length == 0) return
+		if (this.track) this.moveToCur()
 		this.graph.clear()
 		this.graph.rect(0,0,this.sizeX,this.sizeY,10).
 				attr({"fill":"#ddddff"}).
@@ -23,7 +24,13 @@ var historyGraph = {
 		}
 		for (var i=0; i< ss.length; i++){
 			for (var j=0 ; j< ss[i].length; j++){
-				this.drawState(ss[i][j],j,i,ss[i].length)
+				var color = "#ffffff"
+				if (turing.showLevel.level == i){
+					color = "#ffcccc"
+					if (turing.showLevel.state == j)
+						color = "#ff7777"
+				}
+				this.drawState(ss[i][j],j,i,ss[i].length,color)
 			}
 		}
 	},
@@ -37,24 +44,43 @@ var historyGraph = {
 					attr({"stroke-width":"2px","fill":"#000000"})
 	},
 
+
+	moveToCur : function(){
+		this.panX = 300
+		this.panY = 300 - turing.showLevel.level * 50
+	},
+
 	moveToState : function(state){
 		this.panX = this.trackStatePosX - state.x
 		this.panY = this.trackStatePosY - state.y
 	},
 	
-	drawState : function(state,x,y,num,color){
-		x = x*40 - num*20
-		y *= 50
+	drawState : function(state,a,b,num,color){
+		var self = this
+		x = a*40 - num*20
+		y = b*50
 		if (typeof color == "undefined") color = "#fff"
 		if (x+this.panX>0 && x+this.panX<this.sizeX && y+this.panY>0 && y+this.panY < this.sizeY){
 			this.graph.circle(x+this.panX, y+this.panY, this.r).
-				attr({"stroke-width":"2px","fill":color})
+				attr({"stroke-width":"2px","fill":color}).
+				click(function(e){
+					turing.showLevel.level = b
+					turing.showLevel.state = a
+					self.update()
+					graph.moveToCurState()
+					graph.update()
+				})
 			this.graph.text(x+this.panX, y+this.panY , state.state).
-				attr(this.textStyle)
+				attr(this.textStyle).
+				click(function(e){
+					turing.showLevel.level = b
+					turing.showLevel.state = a
+					self.update()
+					graph.moveToCurState()
+					graph.update()
+				})
 		}
 	},
-	
-	
 
 	rotatePoints : function(px,py,ox,oy,theta){
 		return {x: Math.cos(theta) * (px-ox) - Math.sin(theta) * (py-oy) + ox,

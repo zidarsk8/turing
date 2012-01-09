@@ -29,10 +29,7 @@ var turing = {
 		this.delta.push(d) //add delta function
 	},
 	
-	reset : function(){
-		//TODO: reset all local var to default values
-	},
-	
+
 	// deltaString = ['qx a b c d -> qy d e B c R S ',...] , numTapes = 2 numTracks = 2
 	parseDeltaString : function(ds){
 		var check = this.checkDeltaSyntax(ds)
@@ -40,7 +37,7 @@ var turing = {
 			this.finished = false
 			this.accepted = false
 			this.rawDeltaString = ds
-			this.showLevel = {level: -1, state: this.showLevel.state == "all" ? "all" : -1 }
+			this.showLevel = {level: -1, state:  -1 }
 			this.systemStates = [],
 			//this.graphStates = {},
 			this.delta = []
@@ -80,7 +77,7 @@ var turing = {
 		this.addRemoveBlanks(s)
 		s.possibleDeltas = this.getDeltasFromState(s)
 		this.systemStates = [[s]]
-		this.showLevel = {level:0, state: 0 /* n or "all" */ }
+		this.showLevel = {level:0, state: 0 }
 		this.onUpdate()
 	},
 	
