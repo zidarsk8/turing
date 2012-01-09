@@ -3,10 +3,10 @@ var historyGraph = {
 	panX : 150,
 	panY : 20,
 	sizeX : 700,
-	sizeY : 600,
+	sizeY : 200,
 	r : 16,
 	track : true,
-	graph : new Raphael(document.getElementById('historyGraph-canvas'), "700px", "600px"),
+	graph : new Raphael(document.getElementById('historyGraph-canvas'), "700px", "200px"),
 
 	update : function() {
 		var ss = turing.systemStates
@@ -47,7 +47,7 @@ var historyGraph = {
 
 	moveToCur : function(){
 		this.panX = 300
-		this.panY = 300 - turing.showLevel.level * 50
+		this.panY = 160 - turing.showLevel.level * 50
 	},
 
 	moveToState : function(state){

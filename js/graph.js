@@ -3,11 +3,11 @@ var graph = {
 	panX : 100,
 	panY : 100,
 	sizeX : 700,
-	sizeY : 600,
+	sizeY : 400,
 	trackStatePosX : 350,
-	trackStatePosY : 300,
+	trackStatePosY : 200,
 	track : false,
-	graph : new Raphael(document.getElementById('graph-canvas'), "700px", "600px"),
+	graph : new Raphael(document.getElementById('graph-canvas'), "700px", "400px"),
 
 	update : function() {
 		if (_.keys(turing.graphStates).length == 0) return
