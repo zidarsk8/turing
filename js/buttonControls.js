@@ -17,12 +17,10 @@ $(document).ready(function(){
 	$("#prev_b").click(function(){
 		turing.undoMove()
     clearInterval(interval)
-    updateHistoryGraph()
 	})
 	$("#next_b").click(function(){
 		turing.makeNextMove()
     clearInterval(interval)
-    updateHistoryGraph()
 	})
   
   
