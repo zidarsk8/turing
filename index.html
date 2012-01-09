@@ -1,1 +1,129 @@
-My GitHub Page
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<title>Turing Machine Simulator</title>
+		<link type="text/css" href="css/cupertino/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
+
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/tmEditor.css">
+		<style type="text/css">
+			/*demo page css*/
+			.demoHeaders { margin-top: 2em; }
+			#dialog_link {padding: .4em 1em .4em 20px;text-decoration: none;position: relative;}
+			#dialog_link span.ui-icon {margin: 0 5px 0 0;position: absolute;left: .2em;top: 50%;margin-top: -8px;}
+			ul#icons {margin: 0; padding: 0;}
+			ul#icons li {margin: 2px; position: relative; padding: 4px 0; cursor: pointer; float: left;  list-style: none;}
+			ul#icons span.ui-icon {float: left; margin: 0 4px;}
+		</style>	
+	</head>
+	<body>
+
+
+		
+		<header id="banner">
+			<div class="body" id="header">
+				<h1>Turing Machine Simulator</h1>
+			</div>
+		</header>
+
+
+		<div class="body ui-widget ui-widget-content ui-corner-all">
+			<div class="sidePane ui-widget ui-widget-content ui-corner-all">
+				<!--<button id="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
+					 <span class="ui-button-text">Save TM</span> 
+				</button><br>-->
+        <div class="someHeader" style="display:inline-block">Select example:</div>
+				<select id="tmExamples">
+					<option value="user">my machine</option>
+					<option value="primes">primes</option>
+					<option value="fib3">3 track fibonacci</option>
+					<option value="fib2">2 track fibonacci</option>
+				</select> 
+        <hr>
+        <div class="someHeader">Machine settings:</div>
+				<div class="sliderContainer"><div class="slider" id="numTapes"></div> <span id="numTapesLabel">1 Tape</span> </div>
+				<div class="sliderContainer"><div class="slider" id="numTracks"></div> <span id="numTracksLabel">1 Track</span> </div>
+				<div class="sliderContainer" style="margin-bottom:10px"><div class="sliderDim" id="numDimensions"></div> <span id="numDimensionsLabel">1 Dimension</span> </div>
+        <div style="margin-left:10px">
+				<input type="checkbox" id="unlimitedTape"/> Unlimited tape <br>
+				<input type="checkbox" id="nondeterministic"/> Nondeterministic <br>
+        </div>
+
+				<!-- <input type="button" id="fontDec" value="font--">
+				<input type="button" id="fontInc" value="font++"> -->
+         <hr>
+         <div class="someHeader">Turing program:</div>
+				<div contenteditable="true" class="turingCodeEditor" id="turingCodeEditor" >init: q0<br>final: q1 q2 q3</div>
+			</div>
+      
+			<div class="whereStuffHappens ui-widget ui-widget-content ui-corner-all">
+        <table id="topTable">
+        <tr><td id="topInputTd">
+				<div class="someHeader">Machine input:</div>
+        <textarea cols="44" rows="1" id="tmInputWord"></textarea>
+        </td><td id="topControlsTd">
+				<div class="someHeader">Controls:</div>
+        <ul id="icons" class="ui-widget ui-helper-clearfix">
+					<li id="load_b" class="ui-state-default ui-corner-all" title=".ui-icon-circle-plus"><span class="ui-icon ui-icon-circle-plus"></span></li>
+					<li id="prev_b" class="ui-state-default ui-corner-all" title=".ui-icon-seek-prev"><span class="ui-icon ui-icon-seek-prev"></span></li>
+					<li id="next_b" class="ui-state-default ui-corner-all" title=".ui-icon-seek-next"><span class="ui-icon ui-icon-seek-next"></span></li>
+					<li id="play_b" class="ui-state-default ui-corner-all" title=".ui-icon-play"><span class="ui-icon ui-icon-play"></span></li>
+					<li id="pause_b" class="ui-state-default ui-corner-all" title=".ui-icon-pause"><span class="ui-icon ui-icon-pause"></span></li>
+					<!-- <li id="stop_b" class="ui-state-default ui-corner-all" title=".ui-icon-stop"><span class="ui-icon ui-icon-stop"></span></li> -->
+					<li id="findCurState_b" class="ui-state-default ui-corner-all" title=".ui-icon-search"><span class="ui-icon ui-icon-search"></span></li>
+				</ul>
+        </td></tr></table>
+        <hr>
+				
+        <!-- <input type="checkbox" id="track_c" value="track">track -->
+				
+				<div id="accordionEx">
+					<div>
+						<h3><a href="#">Turing Machine Graph</a></h3>
+						<div>
+							<div id="graph-canvas"></div>
+						</div>
+					</div>
+					<div>
+						<h3><a href="#">History Graph</a></h3>
+						<div>
+							<div id="historyGraph-canvas"></div>
+						</div>
+					</div>
+					<div>
+						<h3><a href="#">Tapes/Tracks</a></h3>
+						<div>
+							<div id="showTracks"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="clearBoth">&nbsp;</div>
+	
+		</div>
+		<script type="text/javascript" src="js/examples.js"></script>
+		<script type="text/javascript" src="js/lib/JSON/json2.js"></script>
+		<script type="text/javascript" src="js/lib/raphael-min.js"></script>
+		<script type="text/javascript" src="js/lib/raphael-extension.js"></script>
+		<script type="text/javascript" src="js/lib/underscore/underscore-min.js"></script>
+		<script type="text/javascript" src="js/lib/jquery-1.7.min.js"></script>
+		<script type="text/javascript" src="js/lib/jquery-ui-1.8.16.custom.min.js"></script>
+		<script type="text/javascript" src="js/ui/jquery.ui.selectmenu.js"></script>
+		<script type="text/javascript" src="js/ui/jquery.ui.selectmenu.js"></script>
+		<script type="text/javascript" src="js/ui/jquery.usermode.js"></script>
+		<script type="text/javascript" src="js/ui/jquery.ui.checkbox.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-extended-accordion.js"></script>
+		<!--script type="text/javascript" src="js/lib/chosen/chosen/chosen.jquery.min.js"></script-->
+		<script type="text/javascript" src="js/buttonControls.js"></script>
+		<script type="text/javascript" src="js/functions.js"></script>
+		<script type="text/javascript" src="js/turing.js"></script>
+		<script type="text/javascript" src="js/graph.js"></script>
+		<script type="text/javascript" src="js/historyGraph.js"></script>
+		<script type="text/javascript" src="js/showTracks.js"></script>
+		<script type="text/javascript" src="js/init.js"></script>
+	</body>
+</html>
+
+
