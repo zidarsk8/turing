@@ -6,7 +6,7 @@ var historyGraph = {
 	sizeY : 600,
 	r : 16,
 	track : false,
-	graph : new Raphael(document.getElementById('historyGraph-canvas'), "7000000000px", "600px"),
+	graph : new Raphael(document.getElementById('historyGraph-canvas'), "700px", "600px"),
 
 	update : function() {
 		var ss = turing.systemStates
