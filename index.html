@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-		<title>jQuery UI Example Page</title>
+		<title>Turing Machine Simulator</title>
 		<link type="text/css" href="css/cupertino/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
 
 		<link rel="stylesheet" href="css/style.css">
@@ -31,42 +31,53 @@
 
 		<div class="body ui-widget ui-widget-content ui-corner-all">
 			<div class="sidePane ui-widget ui-widget-content ui-corner-all">
-				<button id="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
-					<span class="ui-button-text">Save TM</span>
-				</button><br>
+				<!--<button id="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
+					 <span class="ui-button-text">Save TM</span> 
+				</button><br>-->
+        <div class="someHeader" style="display:inline-block">Select example:</div>
 				<select id="tmExamples">
-					<option value="primes">primes</option>
+					<option value="user">my machine</option>
 					<option value="primes">primes</option>
 					<option value="fib3">3 track fibonaci</option>
-					<option value="fib3">3 track fibonaci</option>
 					<option value="fib2">2 track fibonaci</option>
-					<option value="fib2">2 track fibonaci</option>
-				</select><br>
+				</select> 
+        <hr>
+        <div class="someHeader">Machine settings:</div>
 				<div class="sliderContainer"><div class="slider" id="numTapes"></div> <span id="numTapesLabel">1 Tape</span> </div>
 				<div class="sliderContainer"><div class="slider" id="numTracks"></div> <span id="numTracksLabel">1 Track</span> </div>
-				<div class="sliderContainer"><div class="sliderDim" id="numDimensions"></div> <span id="numDimensionsLabel">1 Dimension</span> </div>
-
+				<div class="sliderContainer" style="margin-bottom:10px"><div class="sliderDim" id="numDimensions"></div> <span id="numDimensionsLabel">1 Dimension</span> </div>
+        <div style="margin-left:10px">
 				<input type="checkbox" id="unlimitedTape"/> Unlimited tape <br>
 				<input type="checkbox" id="nondeterministic"/> Nondeterministic <br>
+        </div>
 
-				<input type="button" id="fontDec" value="font--">
-				<input type="button" id="fontInc" value="font++">
-
+				<!-- <input type="button" id="fontDec" value="font--">
+				<input type="button" id="fontInc" value="font++"> -->
+         <hr>
+         <div class="someHeader">Turing program:</div>
 				<div contenteditable="true" class="turingCodeEditor" id="turingCodeEditor" >init: q0<br>final: q1 q2 q3</div>
 			</div>
+      
 			<div class="whereStuffHappens ui-widget ui-widget-content ui-corner-all">
-				<textarea cols="44" rows="1" id="tmInputWord"></textarea>
-				<ul id="icons" class="ui-widget ui-helper-clearfix">
+        <table id="topTable">
+        <tr><td id="topInputTd">
+				<div class="someHeader">Machine input:</div>
+        <textarea cols="44" rows="1" id="tmInputWord"></textarea>
+        </td><td id="topControlsTd">
+				<div class="someHeader">Controls:</div>
+        <ul id="icons" class="ui-widget ui-helper-clearfix">
 					<li id="load_b" class="ui-state-default ui-corner-all" title=".ui-icon-circle-plus"><span class="ui-icon ui-icon-circle-plus"></span></li>
 					<li id="prev_b" class="ui-state-default ui-corner-all" title=".ui-icon-seek-prev"><span class="ui-icon ui-icon-seek-prev"></span></li>
-					<li id="pause_b" class="ui-state-default ui-corner-all" title=".ui-icon-pause"><span class="ui-icon ui-icon-pause"></span></li>
-					<li id="play_b" class="ui-state-default ui-corner-all" title=".ui-icon-play"><span class="ui-icon ui-icon-play"></span></li>
 					<li id="next_b" class="ui-state-default ui-corner-all" title=".ui-icon-seek-next"><span class="ui-icon ui-icon-seek-next"></span></li>
-					<li id="stop_b" class="ui-state-default ui-corner-all" title=".ui-icon-stop"><span class="ui-icon ui-icon-stop"></span></li>
+					<li id="play_b" class="ui-state-default ui-corner-all" title=".ui-icon-play"><span class="ui-icon ui-icon-play"></span></li>
+					<li id="pause_b" class="ui-state-default ui-corner-all" title=".ui-icon-pause"><span class="ui-icon ui-icon-pause"></span></li>
+					<!-- <li id="stop_b" class="ui-state-default ui-corner-all" title=".ui-icon-stop"><span class="ui-icon ui-icon-stop"></span></li> -->
 					<li id="findCurState_b" class="ui-state-default ui-corner-all" title=".ui-icon-search"><span class="ui-icon ui-icon-search"></span></li>
 				</ul>
-
-				<input type="checkbox" id="track_c" value="track">track
+        </td></tr></table>
+        <hr>
+				
+        <!-- <input type="checkbox" id="track_c" value="track">track -->
 				
 				<div id="accordionEx">
 					<div>
@@ -82,7 +93,7 @@
 						</div>
 					</div>
 					<div>
-						<h3><a href="#">Tracks</a></h3>
+						<h3><a href="#">Tapes/Tracks</a></h3>
 						<div>
 							<div id="showTracks"></div>
 						</div>

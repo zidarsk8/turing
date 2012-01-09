@@ -6,17 +6,37 @@ $(document).ready(function(){
 
 	$("#reset_b").click(function(){
 		turing.setInitialState($("#tmInputWord").val())
+    clearInterval(interval)
 	})
 	$("#load_b").click(function(){
 		if (turingCheck())
 			turing.setInitialState($("#tmInputWord").val())
+      clearInterval(interval)
 	})
 
 	$("#prev_b").click(function(){
 		turing.undoMove()
+    clearInterval(interval)
+    updateHistoryGraph()
 	})
 	$("#next_b").click(function(){
 		turing.makeNextMove()
+    clearInterval(interval)
+    updateHistoryGraph()
+	})
+  
+  
+  //TODO do less hackerish
+  var interval;
+	$("#play_b").click(function(){
+    clearInterval(interval)
+    interval = setInterval(function(){
+      turing.makeNextMove()
+      $("#findCurState_b").click()
+    },1000)		
+	})
+	$("#pause_b").click(function(){
+    clearInterval(interval)
 	})
 
 	$("#fontDec").click(function(){
@@ -80,13 +100,20 @@ $(document).ready(function(){
 		historyGraph.track = $(this).is(':checked')
 	})
 
-	$("#findCurState_b").click(function(){
+  
+  updateGraph = function() {
 		var t = graph.track
 		graph.track = true
 		graph.update()
 		graph.track = t
+  }
+  updateHistoryGraph = function() {
 		historyGraph.moveToCur()
 		historyGraph.update()
+  }
+	$("#findCurState_b").click(function(){
+    updateGraph()
+    updateHistoryGraph()
 	})
 	
 	$("#saveTm_b").click(function(){

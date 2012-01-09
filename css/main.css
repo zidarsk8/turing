@@ -153,3 +153,22 @@ h1 {
 .selectedWindow {
 	background: #9988ff;	
 }
+
+/*aaaaaaaaaaaaaaaaahhhhhhhhhhhhhhh*/
+
+.someHeader {
+  font-weight:bold;
+  margin:4px;
+}
+
+#topTable {
+  width:100%;
+}
+#topInputTd { 
+  width:50%;
+  border-right:1px solid #ccc;
+}
+#topControlsTd { 
+  padding-left:50px;
+}
+
