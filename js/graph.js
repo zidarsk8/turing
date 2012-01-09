@@ -28,11 +28,11 @@ var graph = {
 					curDeltas.push(turing.delta[turing.systemStates[level][ss].possibleDeltas[d]])
 				}
 			}
-			this.drawDeltas(curDeltas,"#aa0000")
+			this.drawDeltas(curDeltas,"#aa0000",true)
 			this.drawStates(curStates,"#ffcccc")
 
 			for (var d in turing.systemStates[level][state].possibleDeltas){
-				this.drawDeltas([turing.delta[turing.systemStates[level][state].possibleDeltas[d]]],"#ff0000")
+				this.drawDeltas([turing.delta[turing.systemStates[level][state].possibleDeltas[d]]],"#ff0000", true)
 			}
 			curStates = {}
 			curStates[turing.systemStates[level][state].state] = turing.graphStates[turing.systemStates[level][state].state]
@@ -71,7 +71,7 @@ var graph = {
 		}
 	},
 	
-	drawDeltas : function(deltas,color){
+	drawDeltas : function(deltas,color,notext){
     selfConns = {};
 		if (typeof color == "undefined") color = "#000"
 		for (var d in deltas){
@@ -106,8 +106,10 @@ var graph = {
         
 				this.graph.curvedArrow(x1+this.panX, y1+this.panY, xyShort[0]+this.panX, xyShort[1]+this.panY, 10, 0.9).
 						attr({"stroke-width":"2px", "stroke":color})
-				this.graph.text(t.x+this.panX ,t.y+this.panY ,fromS+" -> "+toS+","+move).
+				if(!notext) {
+        this.graph.text(t.x+this.panX ,t.y+this.panY ,fromS+" -> "+toS+","+move).
 						attr(this.textStyle)
+        }
 				//TODO: make pretty colors!attr({"font":"16px serif", "text-anchor":anchor,"stroke":color,"stroke-width":"1px","fill":"#001111"})
 			}
 		}

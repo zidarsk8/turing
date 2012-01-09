@@ -108,6 +108,7 @@ var historyGraph = {
 	startPan : function(x,y){
 		this.origPosX = this.panX
 		this.origPosY = this.panY
+    this.track = false
 	},
 	dragPan : function(dx,dy,x,y){
 		this.panX = this.origPosX + dx
