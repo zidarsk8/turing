@@ -5,7 +5,7 @@ var historyGraph = {
 	sizeX : 700,
 	sizeY : 600,
 	r : 16,
-	track : false,
+	track : true,
 	graph : new Raphael(document.getElementById('historyGraph-canvas'), "700px", "600px"),
 
 	update : function() {
@@ -14,7 +14,7 @@ var historyGraph = {
 		if (this.track) this.moveToCur()
 		this.graph.clear()
 		this.graph.rect(0,0,this.sizeX,this.sizeY,10).
-				attr({"fill":"#ddddff"}).
+				attr({"fill":"#ddddff","stroke-width":"0px"}).
 				drag(this.dragPan,this.startPan,this.endPan,this,this,this)
 		
 		for (var i=1; i< ss.length; i++){
